@@ -101,10 +101,11 @@
 		3C926FBB24B9213100692688 /* Swift Audio v2 */ = {
 			isa = PBXGroup;
 			children = (
+				3C926FF124B9217100692688 /* Controllers */,
+				3C926FF024B9216C00692688 /* Views */,
+				3C926FEF24B9215F00692688 /* Models */,
 				3C926FBC24B9213100692688 /* AppDelegate.swift */,
 				3C926FBE24B9213100692688 /* SceneDelegate.swift */,
-				3C926FC024B9213100692688 /* ViewController.swift */,
-				3C926FC224B9213100692688 /* Main.storyboard */,
 				3C926FC824B9213700692688 /* Assets.xcassets */,
 				3C926FCA24B9213700692688 /* LaunchScreen.storyboard */,
 				3C926FCD24B9213700692688 /* Info.plist */,
@@ -129,6 +130,37 @@
 				3C926FE324B9213700692688 /* Info.plist */,
 			);
 			path = "Swift Audio v2UITests";
+			sourceTree = "<group>";
+		};
+		3C926FEF24B9215F00692688 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3C926FF024B9216C00692688 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3C926FF224B922D400692688 /* Nibs */,
+				3C926FC224B9213100692688 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		3C926FF124B9217100692688 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3C926FC024B9213100692688 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3C926FF224B922D400692688 /* Nibs */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Nibs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
