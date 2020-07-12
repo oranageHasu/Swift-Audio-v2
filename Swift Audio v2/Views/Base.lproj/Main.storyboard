@@ -106,6 +106,7 @@
                     <navigationItem key="navigationItem" id="ZSm-Qt-4dj"/>
                     <connections>
                         <outlet property="groupSegmentedControl" destination="WlO-Ry-tVd" id="lRv-KT-rq0"/>
+                        <outlet property="tableView" destination="Xbl-go-bjG" id="hvN-xx-ezT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
