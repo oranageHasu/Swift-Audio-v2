@@ -13,6 +13,7 @@ class LibraryViewController: UIViewController {
     @IBOutlet weak var groupSegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     
+    var currentSong: Media?
     var mediaManager = MediaFileManager()
     var media: [Media] = [
         Media(artist: "Clay Walker", title: "She Won't Be Lonely Long", duration: "3:48"),
@@ -23,6 +24,7 @@ class LibraryViewController: UIViewController {
         super.viewDidLoad()
         
         tableView.dataSource = self
+        tableView.delegate = self
         
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
     }
@@ -50,6 +52,16 @@ class LibraryViewController: UIViewController {
     func directoryPickerDismissed() {
         print("Prompt dismissed.")
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // get a reference to the Player ViewController
+        let player = segue.destination as! PlayerViewController
+        
+        // Supply the song to play
+        player.currentSong = currentSong
+        
+    }
 }
 
 
@@ -76,8 +88,12 @@ extension LibraryViewController: UITableViewDataSource {
 extension LibraryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            
+        
+        // Set the current Media selection
+        currentSong = media[indexPath.row]
+        
         // Perform Touch interaction with the media here
+        self.performSegue(withIdentifier: Constants.playerSegue, sender: self)
         
     }
 }

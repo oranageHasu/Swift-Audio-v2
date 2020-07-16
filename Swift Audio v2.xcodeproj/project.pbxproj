@@ -23,6 +23,11 @@
 		3C92704224BBCC6100692688 /* MediaItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C92704024BBCC6100692688 /* MediaItemViewCell.swift */; };
 		3C92704324BBCC6100692688 /* MediaItemViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C92704124BBCC6100692688 /* MediaItemViewCell.xib */; };
 		3C92704524BBCF5B00692688 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C92704424BBCF5B00692688 /* Constants.swift */; };
+		3C92709224BD1D2900692688 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C92709124BD1D2900692688 /* PlayerViewController.swift */; };
+		3C92709B24BE7D3100692688 /* The Reklaws - Old Country Soul.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3C92709724BE7D3000692688 /* The Reklaws - Old Country Soul.mp3 */; };
+		3C92709C24BE7D3100692688 /* Men At Work - Who Can It Be Now.flac in Resources */ = {isa = PBXBuildFile; fileRef = 3C92709824BE7D3000692688 /* Men At Work - Who Can It Be Now.flac */; };
+		3C92709D24BE7D3100692688 /* Reklaws.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3C92709924BE7D3000692688 /* Reklaws.jpg */; };
+		3C92709E24BE7D3100692688 /* Men At Work.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3C92709A24BE7D3100692688 /* Men At Work.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +70,11 @@
 		3C92704024BBCC6100692688 /* MediaItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemViewCell.swift; sourceTree = "<group>"; };
 		3C92704124BBCC6100692688 /* MediaItemViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaItemViewCell.xib; sourceTree = "<group>"; };
 		3C92704424BBCF5B00692688 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		3C92709124BD1D2900692688 /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		3C92709724BE7D3000692688 /* The Reklaws - Old Country Soul.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "The Reklaws - Old Country Soul.mp3"; path = "Swift Audio v2/Resources/The Reklaws - Old Country Soul.mp3"; sourceTree = SOURCE_ROOT; };
+		3C92709824BE7D3000692688 /* Men At Work - Who Can It Be Now.flac */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Men At Work - Who Can It Be Now.flac"; path = "Swift Audio v2/Resources/Men At Work - Who Can It Be Now.flac"; sourceTree = SOURCE_ROOT; };
+		3C92709924BE7D3000692688 /* Reklaws.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Reklaws.jpg; path = "Swift Audio v2/Resources/Reklaws.jpg"; sourceTree = SOURCE_ROOT; };
+		3C92709A24BE7D3100692688 /* Men At Work.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Men At Work.jpg"; path = "Swift Audio v2/Resources/Men At Work.jpg"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +125,7 @@
 		3C926FBB24B9213100692688 /* Swift Audio v2 */ = {
 			isa = PBXGroup;
 			children = (
+				3C92709624BE7D1600692688 /* Sample Data */,
 				3C92704624BBCF7B00692688 /* Structs */,
 				3C926FF124B9217100692688 /* Controllers */,
 				3C926FF024B9216C00692688 /* Views */,
@@ -171,6 +182,7 @@
 			children = (
 				3C926FC024B9213100692688 /* LibraryViewController.swift */,
 				3C926FF324BA745500692688 /* DocumentPickerViewController.swift */,
+				3C92709124BD1D2900692688 /* PlayerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -190,6 +202,17 @@
 				3C92704424BBCF5B00692688 /* Constants.swift */,
 			);
 			path = Structs;
+			sourceTree = "<group>";
+		};
+		3C92709624BE7D1600692688 /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				3C92709824BE7D3000692688 /* Men At Work - Who Can It Be Now.flac */,
+				3C92709A24BE7D3100692688 /* Men At Work.jpg */,
+				3C92709924BE7D3000692688 /* Reklaws.jpg */,
+				3C92709724BE7D3000692688 /* The Reklaws - Old Country Soul.mp3 */,
+			);
+			path = "Sample Data";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -296,10 +319,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C92709D24BE7D3100692688 /* Reklaws.jpg in Resources */,
 				3C92704324BBCC6100692688 /* MediaItemViewCell.xib in Resources */,
 				3C926FCC24B9213700692688 /* LaunchScreen.storyboard in Resources */,
 				3C926FC924B9213700692688 /* Assets.xcassets in Resources */,
 				3C926FC424B9213100692688 /* Main.storyboard in Resources */,
+				3C92709B24BE7D3100692688 /* The Reklaws - Old Country Soul.mp3 in Resources */,
+				3C92709E24BE7D3100692688 /* Men At Work.jpg in Resources */,
+				3C92709C24BE7D3100692688 /* Men At Work - Who Can It Be Now.flac in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +360,7 @@
 				3C92704224BBCC6100692688 /* MediaItemViewCell.swift in Sources */,
 				3C926FBD24B9213100692688 /* AppDelegate.swift in Sources */,
 				3C926FF624BA755200692688 /* MediaFileManager.swift in Sources */,
+				3C92709224BD1D2900692688 /* PlayerViewController.swift in Sources */,
 				3C926FBF24B9213100692688 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
