@@ -29,6 +29,14 @@ class LibraryViewController: UIViewController {
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // get a reference to the Player ViewController
+        let player = segue.destination as! PlayerViewController
+        
+        // Supply the song to play
+        player.currentSong = currentSong
+    }
+    
     @IBAction func importDirectoryPressed(_ sender: UIButton) {
         let picker = DocumentPickerViewController(
             onPick: self.directorySelected,
@@ -52,19 +60,9 @@ class LibraryViewController: UIViewController {
     func directoryPickerDismissed() {
         print("Prompt dismissed.")
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        // get a reference to the Player ViewController
-        let player = segue.destination as! PlayerViewController
-        
-        // Supply the song to play
-        player.currentSong = currentSong
-        
-    }
 }
 
-
+//MARK: - TableView Datasource
 extension LibraryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,19 +79,16 @@ extension LibraryViewController: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
 
+//MARK: - TableView Delegate
 extension LibraryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         // Set the current Media selection
         currentSong = media[indexPath.row]
         
         // Perform Touch interaction with the media here
         self.performSegue(withIdentifier: Constants.playerSegue, sender: self)
-        
     }
 }

@@ -14,9 +14,7 @@ class DocumentPickerViewController: UIDocumentPickerViewController {
     private let onDismiss: () -> Void
     private let onPick: (URL) -> ()
     
-    init(onPick: @escaping (URL) -> Void,
-         onDismiss: @escaping () -> Void) {
-        
+    init(onPick: @escaping (URL) -> Void, onDismiss: @escaping () -> Void) {
         self.onDismiss = onDismiss
         self.onPick = onPick
         
@@ -26,7 +24,6 @@ class DocumentPickerViewController: UIDocumentPickerViewController {
         
         // allowsMultipleSelection = true
         delegate = self
-        
     }
     
     required init?(coder: NSCoder) {
@@ -44,5 +41,4 @@ extension DocumentPickerViewController: UIDocumentPickerDelegate {
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         onDismiss()
     }
-    
 }

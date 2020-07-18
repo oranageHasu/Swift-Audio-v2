@@ -126,8 +126,15 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="642"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Men At Work.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="mpF-jY-VRh">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="472"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="462"/>
                                     </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ajL-EZ-QFO">
+                                        <rect key="frame" x="0.0" y="462" width="414" height="10"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="10" id="Nec-MY-hzM"/>
+                                        </constraints>
+                                    </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="E3o-Re-Qi9" userLabel="MediaLabels">
                                         <rect key="frame" x="0.0" y="472" width="414" height="80"/>
                                         <subviews>
@@ -155,20 +162,26 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xX7-sv-wsW" userLabel="Player">
                                         <rect key="frame" x="0.0" y="552" width="414" height="90"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ang-EE-oby" userLabel="PlayerSlider">
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ang-EE-oby" userLabel="PlayerSlider">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNn-eE-ebQ" userLabel="PlayTime">
-                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="TaP-kv-x50"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dmu-zc-7Zr">
-                                                        <rect key="frame" x="13" y="0.0" width="388" height="31"/>
+                                                        <rect key="frame" x="50" y="0.0" width="314" height="31"/>
                                                     </slider>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlf-dv-vho" userLabel="Duration">
-                                                        <rect key="frame" x="414" y="0.0" width="0.0" height="30"/>
+                                                        <rect key="frame" x="364" y="0.0" width="50" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="50" id="tTD-dH-Hn4"/>
+                                                        </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -190,6 +203,9 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="shuffle" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="shufflePressed:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="ajU-gZ-G0V"/>
+                                                        </connections>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ztX-xq-db3" userLabel="MediaButtonStack">
                                                         <rect key="frame" x="108.99999999999999" y="10" width="197.66666666666663" height="40"/>
@@ -199,6 +215,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <state key="normal" image="backward.end.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="lastSongPressed:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="Nye-tc-E6F"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UEE-yw-vCP" userLabel="Rewind">
                                                                 <rect key="frame" x="29.666666666666657" y="0.0" width="25.333333333333329" height="40"/>
@@ -211,6 +230,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <state key="normal" image="stop.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="stopPressed:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="Dla-zz-ux6"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="59k-ZC-jb6" userLabel="Play">
                                                                 <rect key="frame" x="92.666666666666657" y="2" width="40" height="36"/>
@@ -223,6 +245,9 @@
                                                                 <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="25" maxY="15"/>
                                                                 <inset key="imageEdgeInsets" minX="30" minY="30" maxX="30" maxY="30"/>
                                                                 <state key="normal" backgroundImage="play.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="playPressed:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="arF-ld-LAr"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AC7-h6-XGk" userLabel="FastForward">
                                                                 <rect key="frame" x="142.66666666666666" y="0.0" width="25.333333333333343" height="40"/>
@@ -235,6 +260,9 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <state key="normal" image="forward.end.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="nextSongPressed:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="QiA-xr-JVU"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -243,6 +271,9 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                         <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         <state key="normal" image="repeat" catalog="system"/>
+                                                        <connections>
+                                                            <action selector="repeatPressed:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="KPD-DB-foU"/>
+                                                        </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AcS-EH-cdv">
                                                         <rect key="frame" x="404" y="5" width="10" height="50"/>
@@ -273,7 +304,12 @@
                     <navigationItem key="navigationItem" id="qgb-Pk-PZI"/>
                     <connections>
                         <outlet property="artistLabel" destination="70s-Hy-VDg" id="4sA-d7-B5f"/>
-                        <outlet property="playButton" destination="59k-ZC-jb6" id="QZU-Z0-3ev"/>
+                        <outlet property="durationLabel" destination="xlf-dv-vho" id="yVQ-7a-FTg"/>
+                        <outlet property="playButton" destination="59k-ZC-jb6" id="Fge-PV-eJm"/>
+                        <outlet property="playerSlider" destination="dmu-zc-7Zr" id="sN4-gr-uzD"/>
+                        <outlet property="playtimeLabel" destination="eNn-eE-ebQ" id="F2x-Yd-QlQ"/>
+                        <outlet property="repeatButton" destination="cpM-A8-ela" id="a5I-yg-OwK"/>
+                        <outlet property="shuffleButton" destination="WBM-CV-s3E" id="Pxd-q3-xUS"/>
                         <outlet property="songImage" destination="mpF-jY-VRh" id="Kit-JF-pxG"/>
                         <outlet property="titleLabel" destination="cK2-Ov-hhY" id="mpq-uC-0UL"/>
                     </connections>
