@@ -44,7 +44,7 @@ class PlayerViewController: UIViewController {
     
     //MARK: - IBActions
     @IBAction func playPressed(_ sender: UIButton) {
-        playerEngine.engagePlayer()
+        playerEngine.engagePlayer(forSong: currentSong)
         refreshUI()
     }
     

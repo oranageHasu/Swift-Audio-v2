@@ -15,10 +15,7 @@ class LibraryViewController: UIViewController {
     
     var currentSong: Media?
     var mediaManager = MediaFileManager()
-    var media: [Media] = [
-        Media(artist: "Clay Walker", title: "She Won't Be Lonely Long", duration: "3:48"),
-        Media(artist: "Blue Rodeo", title: "Head Over Heels", duration: "2:55")
-    ]
+    var media: [Media] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +45,39 @@ class LibraryViewController: UIViewController {
     
     func directorySelected(url: URL) {
         print("File URL: \(url)")
-        media = mediaManager.processFolder(with: url)
         
+        // Clear the current Media collection
+        self.media = []
+
+        // Display an progress indicator
+        let alert = UIAlertController(title: nil, message: "Loading music...", preferredStyle: .alert)
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 70, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = UIActivityIndicatorView.Style.large
+        loadingIndicator.startAnimating();
+
+        alert.view.addSubview(loadingIndicator)
+        present(alert, animated: true, completion: nil)
+        
+        // Use a Background Thread to read in the Media
+        // Note: We're creating Bookmarks to access the songs.  This can be long-running
+        DispatchQueue.global(qos: .background).async {
+            self.media = self.mediaManager.processFolder(with: url)
+
+            DispatchQueue.main.async {
+                // Dimiss the loading indicator
+                alert.dismiss(animated: true, completion: nil)
+                
+                // Reload the table
+                self.tableView.reloadData()
+                let indexPath = IndexPath(row: 0, section: 0)
+                self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+            }
+        }
+        
+        // Update the Tableview (should now be empty)
         DispatchQueue.main.async {
             self.tableView.reloadData()
-            let indexPath = IndexPath(row: 0, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
     

@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CoreServices
 import Combine
+import AVKit
 
 struct MediaFileManager {
     
@@ -44,18 +45,6 @@ struct MediaFileManager {
             
             for case let file as URL in fileList {
                 
-                // Start accessing the Directory content's security-scoped URL
-                guard url.startAccessingSecurityScopedResource() else {
-                    
-                    // Failure!
-                    print("Failed accessing the directory URL content for \(file.path)")
-                    continue
-                    
-                }
-                
-                // Ensure the security-scope resource is released once finished
-                defer { url.stopAccessingSecurityScopedResource() }
-                
                 // Act on the file!
                 // For now, simply parse the file name, build a simple Media instance, and display that
                 // We'll do better next iteration
@@ -69,19 +58,21 @@ struct MediaFileManager {
                     }
                     
                     let songNameWithoutExt = String(split[1].dropLast(removeCharAmt))
-                    
-                    tempMedia = Media(artist: split[0], title: songNameWithoutExt, duration: "0:00")
-                    tempMedia.id = UUID().hashValue
-                    mediaFromNetwork.append(tempMedia)
-                    
-                    print("Creating Array: \(mediaFromNetwork[index].artist)")
-                    print("Creating Array: \(mediaFromNetwork[index].title)")
+     
+                    do {
+                        tempMedia = Media(artist: split[0], title: songNameWithoutExt, duration: "0:00")
+                        tempMedia.id = UUID().hashValue
+                        tempMedia.mediaBookmark = try file.bookmarkData()
+                        mediaFromNetwork.append(tempMedia)
+                    } catch {
+                        print("Error creating bookmark.")
+                    }
                     
                     index += 1
                 }
             }
         })
-        
+                
         return mediaFromNetwork
     }
 }

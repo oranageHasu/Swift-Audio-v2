@@ -18,6 +18,9 @@ class Media: Identifiable {
     var duration: String = "Default"
     fileprivate var imageName: String = ""
     
+    // Actual Media URL bookmark
+    var mediaBookmark: Data = Data()
+    
     // Media source
     var source: Source?
     
