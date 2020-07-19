@@ -66,7 +66,7 @@ class PlayerEngine {
             var error: NSError? = nil
 
             do {
-                let url =  try URL(resolvingBookmarkData: song.mediaBookmark, bookmarkDataIsStale: &isStale)
+                let url =  try URL(resolvingBookmarkData: song.mediaBookmark!, bookmarkDataIsStale: &isStale)
                 
                 print("File URL: \(url)")
                 guard url.startAccessingSecurityScopedResource() else {

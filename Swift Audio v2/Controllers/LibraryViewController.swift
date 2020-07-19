@@ -9,9 +9,11 @@
 import UIKit
 
 class LibraryViewController: UIViewController {
-    
+
     @IBOutlet weak var groupSegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    
+    var dataService = DataService()
     
     var currentSong: Media?
     var mediaManager = MediaFileManager()
@@ -24,6 +26,8 @@ class LibraryViewController: UIViewController {
         tableView.delegate = self
         
         tableView.register(UINib(nibName: Constants.cellNibName, bundle: nil), forCellReuseIdentifier: Constants.cellIdentifier)
+        
+        media = dataService.loadLibrary()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -99,7 +103,7 @@ extension LibraryViewController: UITableViewDataSource {
         
         cell.artistLabel.text = mediaItem.artist
         cell.songTitleLabel.text = mediaItem.title
-        cell.songDurationLabel.text = mediaItem.duration
+        cell.songDurationLabel.text = "00:00"
         
         return cell
     }

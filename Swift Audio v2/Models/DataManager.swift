@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 let mediaData: [Media] = []
-let features = mediaData.filter { $0.isFeatured ?? false }
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data

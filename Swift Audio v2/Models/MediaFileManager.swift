@@ -6,13 +6,13 @@
 //  Copyright © 2020 Blair Petrachek. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import CoreServices
-import Combine
 import AVKit
 
 struct MediaFileManager {
+    
+    let dataService = DataService()
     
     func processFolder(with url: URL) -> [Media] {
         var mediaFromNetwork: [Media] = []
@@ -60,9 +60,10 @@ struct MediaFileManager {
                     let songNameWithoutExt = String(split[1].dropLast(removeCharAmt))
      
                     do {
-                        tempMedia = Media(artist: split[0], title: songNameWithoutExt, duration: "0:00")
-                        tempMedia.id = UUID().hashValue
-                        tempMedia.mediaBookmark = try file.bookmarkData()
+                        // let playerItem = AVPlayerItem(url: file)
+                        // print("Meta Data: \(playerItem.asset.metadata)")
+                        
+                        tempMedia = self.dataService.addMedia(artist: split[0], title: songNameWithoutExt, duration: 0.0, bookmark: try file.bookmarkData())
                         mediaFromNetwork.append(tempMedia)
                     } catch {
                         print("Error creating bookmark.")
@@ -71,6 +72,9 @@ struct MediaFileManager {
                     index += 1
                 }
             }
+            
+            // Save the Library
+            self.dataService.saveLibrary()
         })
                 
         return mediaFromNetwork
