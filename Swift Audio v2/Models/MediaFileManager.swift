@@ -19,11 +19,8 @@ struct MediaFileManager {
         var error: NSError? = nil
         
         guard url.startAccessingSecurityScopedResource() else {
-            
-            // Failure!
             print("Failed accessing Directory.")
             return mediaFromNetwork
-            
         }
         
         // Ensure the security-scope resource is released once finished
@@ -31,10 +28,7 @@ struct MediaFileManager {
         
         // Use File Coordination for reading the URLs contents
         NSFileCoordinator().coordinate(readingItemAt: url, error: &error, byAccessor: { (url) in
-            
             let keys: [URLResourceKey] = [.nameKey, .isDirectoryKey]
-            var tempMedia: Media
-            var index = 0
 
             // Get an enumerator for the Directory's content
             guard let fileList =
@@ -45,36 +39,47 @@ struct MediaFileManager {
             
             for case let file as URL in fileList {
                 
-                // Act on the file!
-                // For now, simply parse the file name, build a simple Media instance, and display that
-                // We'll do better next iteration
-                let filename = file.lastPathComponent
-                let split = filename.components(separatedBy: " - ")
-                
-                if (split.count == 2) {
-                    var removeCharAmt = 4
-                    if split[0].contains(".flac") {
-                        removeCharAmt = 5
-                    }
+                do {
+                    // Get the song metadata
+                    let playerItem = AVPlayerItem(url: file)
+                    let metadata = playerItem.asset.metadata
                     
-                    let songNameWithoutExt = String(split[1].dropLast(removeCharAmt))
-     
-                    do {
-                        // let playerItem = AVPlayerItem(url: file)
-                        // print("Meta Data: \(playerItem.asset.metadata)")
+                    // Add a new Media item to the database
+                    // To Do: Handle duplicates
+                    let media = Media(context: dataService.context)
+
+                    // Create a filesystem bookmark for this song
+                    media.mediaBookmark = try file.bookmarkData()
+                    
+                    // Process the metadata
+                    for item in metadata {
+
+                        guard let key = item.commonKey?.rawValue, let value = item.value else{
+                            continue
+                        }
                         
-                        tempMedia = self.dataService.addMedia(artist: split[0], title: songNameWithoutExt, duration: 0.0, bookmark: try file.bookmarkData())
-                        mediaFromNetwork.append(tempMedia)
-                    } catch {
-                        print("Error creating bookmark.")
+                        switch key {
+                            case "title" : media.title = value as? String
+                            case "artist": media.artist = value as? String
+                            case "albumName": media.albumName = value as? String
+                            case "type": media.type = value as? String
+                            case "publisher": media.publisher = value as? String
+                            case "artwork" where value is Data : media.artwork = value as? Data
+                            default:
+                                print("Unknown: \(value) For Key: \(key)")
+                            continue
+                        }
                     }
                     
-                    index += 1
+                    mediaFromNetwork.append(media)
+                } catch {
+                    print("ERROR - MediaFileManager.processFolder() - Error processing music file.")
+                    print(error)
                 }
             }
             
             // Save the Library
-            self.dataService.saveLibrary()
+            //self.dataService.saveLibrary()
         })
                 
         return mediaFromNetwork

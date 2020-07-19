@@ -11,17 +11,10 @@ import AVKit
 
 protocol PlayerEngineDelegate {
     func playtimeHasChanged(_ playTime: TimeInterval)
+    func newSongStarted(_ media: Media)
 }
 
 class PlayerEngine {
-    
-    //MARK: - Variable Declarations
-    // Temp Variables
-    var songs = ["Men At Work - Who Can It Be Now.flac","The Reklaws - Old Country Soul.mp3"]
-    var currentSongIndex: Int = 0
-    let dot = "."
-    let mp3 = "mp3"
-    let flac = "flac"
     
     // Audio States
     var isShuffleOn = false
@@ -36,7 +29,7 @@ class PlayerEngine {
     var timer: Timer!
     
     // Media
-    private var currentSong: Media?
+    private(set) var currentSong: Media?
     
     // Delegate
     var delegate: PlayerEngineDelegate?
@@ -89,11 +82,15 @@ class PlayerEngine {
                         // Stack state
                         isPlaying = player.isPlaying
                         isPaused = false
-                        
                         songDuration = player.duration
+                        
+                        // Playtime timer
                         timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
                             self.updatePlayTime()
                         }
+                        
+                        // Let everyone know what magic just went down.
+                        delegate?.newSongStarted(song)
                     } catch {
                         print("Error Playing while loading media.")
                     }
@@ -127,13 +124,6 @@ class PlayerEngine {
         // Stop playing the current song
         stopSong()
         
-        // Reset the Curr Index back to Array length if the user hits the start of the fake library
-        if currentSongIndex > 0 {
-            currentSongIndex -= 1
-        } else {
-            currentSongIndex = songs.count-1
-        }
-        
         // Play the new song
         playSong()
     }
@@ -142,13 +132,6 @@ class PlayerEngine {
         // Stop playing the current song
         stopSong()
 
-        // Reset the Curr Index back to 0 if the user hits the end of the fake library
-        if currentSongIndex < songs.count-1 {
-            currentSongIndex += 1
-        } else {
-            currentSongIndex = 0
-        }
-        
         // Play the new song
         playSong()
     }

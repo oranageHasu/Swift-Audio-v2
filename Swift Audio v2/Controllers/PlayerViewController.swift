@@ -36,10 +36,14 @@ class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        playerEngine.delegate = self
+        
         // Initial View setup
         initializePlayer()
-        
-        playerEngine.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        playerEngine.engagePlayer(forSong: currentSong)
     }
     
     //MARK: - IBActions
@@ -56,12 +60,10 @@ class PlayerViewController: UIViewController {
     
     @IBAction func nextSongPressed(_ sender: UIButton) {
         playerEngine.nextSong()
-        refreshUI()
     }
     
     @IBAction func lastSongPressed(_ sender: UIButton) {
         playerEngine.lastSong()
-        refreshUI()
     }
     
     @IBAction func shufflePressed(_ sender: UIButton) {
@@ -94,6 +96,13 @@ class PlayerViewController: UIViewController {
         
         // Song metadata related state:
         durationLabel.text = timeIntervalToString(for: playerEngine.songDuration)
+        
+        if let artwork = playerEngine.currentSong?.artwork {
+            songImage.image = UIImage(data: artwork)
+            print(songImage.image)
+        } else {
+            print("no artwork")
+        }
     }
     
     private func toggleImageColor(for button: UIButton!, with state: Bool) {
@@ -120,4 +129,8 @@ extension PlayerViewController: PlayerEngineDelegate {
         playerSlider.value = Float(timePlayed)
     }
     
+    func newSongStarted(_ media: Media) {
+        currentSong = media
+        refreshUI()
+    }
 }

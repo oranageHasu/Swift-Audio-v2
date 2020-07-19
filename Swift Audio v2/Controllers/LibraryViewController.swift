@@ -53,7 +53,7 @@ class LibraryViewController: UIViewController {
         // Clear the current Media collection
         self.media = []
 
-        // Display an progress indicator
+        // Display a progress indicator
         let alert = UIAlertController(title: nil, message: "Loading music...", preferredStyle: .alert)
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 70, height: 50))
         loadingIndicator.hidesWhenStopped = true
@@ -64,7 +64,7 @@ class LibraryViewController: UIViewController {
         present(alert, animated: true, completion: nil)
         
         // Use a Background Thread to read in the Media
-        // Note: We're creating Bookmarks to access the songs.  This can be long-running
+        // Note: We're creating Bookmarks to access the songs.  This can be long-running operation.
         DispatchQueue.global(qos: .background).async {
             self.media = self.mediaManager.processFolder(with: url)
 

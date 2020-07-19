@@ -18,7 +18,6 @@
 		3C926FE224B9213700692688 /* Swift_Audio_v2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FE124B9213700692688 /* Swift_Audio_v2UITests.swift */; };
 		3C926FF424BA745500692688 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FF324BA745500692688 /* DocumentPickerViewController.swift */; };
 		3C926FF624BA755200692688 /* MediaFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FF524BA755200692688 /* MediaFileManager.swift */; };
-		3C926FFA24BA760600692688 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FF924BA760600692688 /* DataManager.swift */; };
 		3C92704224BBCC6100692688 /* MediaItemViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C92704024BBCC6100692688 /* MediaItemViewCell.swift */; };
 		3C92704324BBCC6100692688 /* MediaItemViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C92704124BBCC6100692688 /* MediaItemViewCell.xib */; };
 		3C92704524BBCF5B00692688 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C92704424BBCF5B00692688 /* Constants.swift */; };
@@ -64,7 +63,6 @@
 		3C926FE324B9213700692688 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C926FF324BA745500692688 /* DocumentPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerViewController.swift; sourceTree = "<group>"; };
 		3C926FF524BA755200692688 /* MediaFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaFileManager.swift; sourceTree = "<group>"; };
-		3C926FF924BA760600692688 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		3C92704024BBCC6100692688 /* MediaItemViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaItemViewCell.swift; sourceTree = "<group>"; };
 		3C92704124BBCC6100692688 /* MediaItemViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaItemViewCell.xib; sourceTree = "<group>"; };
 		3C92704424BBCF5B00692688 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -162,7 +160,6 @@
 			children = (
 				3CE11A0824C33D9500D6ABC2 /* PlayerEngine.swift */,
 				3C926FF524BA755200692688 /* MediaFileManager.swift */,
-				3C926FF924BA760600692688 /* DataManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -355,7 +352,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C926FF424BA745500692688 /* DocumentPickerViewController.swift in Sources */,
-				3C926FFA24BA760600692688 /* DataManager.swift in Sources */,
 				3C926FC724B9213100692688 /* SwiftAudio.xcdatamodeld in Sources */,
 				3CE11A0C24C3C65E00D6ABC2 /* DataService.swift in Sources */,
 				3C926FC124B9213100692688 /* LibraryViewController.swift in Sources */,
