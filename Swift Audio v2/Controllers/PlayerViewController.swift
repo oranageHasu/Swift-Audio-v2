@@ -23,7 +23,6 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var playerSlider: UISlider!
     
-    var playerEngine = PlayerEngine()
     var currentSong: Media?
     
     var timeFormat: DateFormatter {
@@ -36,44 +35,44 @@ class PlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        playerEngine.delegate = self
+        sharedPlayerEngine.delegate = self
         
         // Initial View setup
         initializePlayer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        playerEngine.engagePlayer(forSong: currentSong)
+        sharedPlayerEngine.engagePlayer(forSong: currentSong)
     }
     
     //MARK: - IBActions
     @IBAction func playPressed(_ sender: UIButton) {
-        playerEngine.engagePlayer(forSong: currentSong)
+        sharedPlayerEngine.engagePlayer(forSong: currentSong)
         refreshUI()
     }
     
     @IBAction func stopPressed(_ sender: UIButton) {
-        playerEngine.stopSong()
+        sharedPlayerEngine.stopSong()
         refreshUI()
         playtimeLabel.text = "00:00"
     }
     
     @IBAction func nextSongPressed(_ sender: UIButton) {
-        playerEngine.nextSong()
+        sharedPlayerEngine.nextSong()
     }
     
     @IBAction func lastSongPressed(_ sender: UIButton) {
-        playerEngine.lastSong()
+        sharedPlayerEngine.lastSong()
     }
     
     @IBAction func shufflePressed(_ sender: UIButton) {
-        playerEngine.isShuffleOn.toggle()
-        toggleImageColor(for: shuffleButton, with: playerEngine.isShuffleOn)
+        sharedPlayerEngine.isShuffleOn.toggle()
+        toggleImageColor(for: shuffleButton, with: sharedPlayerEngine.isShuffleOn)
     }
     
     @IBAction func repeatPressed(_ sender: UIButton) {
-        playerEngine.isRepeatOn.toggle()
-        toggleImageColor(for: repeatButton, with: playerEngine.isRepeatOn)
+        sharedPlayerEngine.isRepeatOn.toggle()
+        toggleImageColor(for: repeatButton, with: sharedPlayerEngine.isRepeatOn)
     }
     
     //MARK: - Private Methods
@@ -84,24 +83,28 @@ class PlayerViewController: UIViewController {
         } else {
             print("ERROR -- PlayerViewController.initializePlayer() - Supplied Media instance is nil.")
         }
+        
+        // Stop the current song (if already playing)
+        sharedPlayerEngine.stopSong()
     }
     
     private func refreshUI() {
         // Player/Pause button state:
-        if playerEngine.isPlaying && !playerEngine.isPaused {
+        if sharedPlayerEngine.isPlaying && !sharedPlayerEngine.isPaused {
             playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
         } else {
             playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
         }
         
         // Song metadata related state:
-        durationLabel.text = timeIntervalToString(for: playerEngine.songDuration)
+        durationLabel.text = timeIntervalToString(for: sharedPlayerEngine.songDuration)
         
-        if let artwork = playerEngine.currentSong?.artwork {
+        if let artwork = sharedPlayerEngine.currentSong?.artwork {
             songImage.image = UIImage(data: artwork)
-            print(songImage.image)
         } else {
-            print("no artwork")
+            // Default Artwork
+            songImage.image = UIImage(systemName: "hifispeaker")?.withAlignmentRectInsets(UIEdgeInsets(top: -45, left: -45, bottom: -45, right: -45))
+            songImage.tintColor = UIColor(cgColor: CGColor(srgbRed: 255.0, green: 255.0, blue: 255.0, alpha: 1))
         }
     }
     
@@ -125,7 +128,7 @@ extension PlayerViewController: PlayerEngineDelegate {
     func playtimeHasChanged(_ playTime: TimeInterval) {
         playtimeLabel.text = timeIntervalToString(for: playTime)
         
-        let timePlayed = playerEngine.playTime / playerEngine.songDuration
+        let timePlayed = sharedPlayerEngine.playTime / sharedPlayerEngine.songDuration
         playerSlider.value = Float(timePlayed)
     }
     

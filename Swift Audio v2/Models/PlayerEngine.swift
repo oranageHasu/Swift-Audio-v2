@@ -14,6 +14,10 @@ protocol PlayerEngineDelegate {
     func newSongStarted(_ media: Media)
 }
 
+// Global PlayerEngine instance
+// This allows us to move around screens while maintaining state
+let sharedPlayerEngine = PlayerEngine()
+
 class PlayerEngine {
     
     // Audio States
