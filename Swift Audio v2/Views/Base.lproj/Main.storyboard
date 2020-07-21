@@ -174,8 +174,13 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="dmu-zc-7Zr">
+                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmu-zc-7Zr">
                                                         <rect key="frame" x="50" y="0.0" width="314" height="31"/>
+                                                        <connections>
+                                                            <action selector="currentTimeChanged:" destination="SNM-D5-s6Z" eventType="valueChanged" id="Btz-EH-ki1"/>
+                                                            <action selector="sliderDragInside:" destination="SNM-D5-s6Z" eventType="touchDragInside" id="0SO-K7-3Xd"/>
+                                                            <action selector="sliderTouchUp:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="l8W-sE-HqF"/>
+                                                        </connections>
                                                     </slider>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlf-dv-vho" userLabel="Duration">
                                                         <rect key="frame" x="364" y="0.0" width="50" height="30"/>

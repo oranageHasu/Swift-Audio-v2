@@ -24,10 +24,9 @@ class PlayerEngine {
     var isShuffleOn = false
     var isRepeatOn = false
     var isPaused = false
-    var isPlaying = false
     
     // Player
-    var player: AVAudioPlayer!
+    var player = AVAudioPlayer()
     var playTime: TimeInterval = 0.0
     var songDuration: TimeInterval = 0.0
     var timer: Timer!
@@ -43,7 +42,7 @@ class PlayerEngine {
         currentSong = media
         
         // Engage the Media Player, allowing this engine to decide what to do based on its state.
-        if player == nil || !player.isPlaying {
+        if !player.isPlaying {
             
             if isPaused {
               resumeSong()
@@ -84,7 +83,6 @@ class PlayerEngine {
                         player.play()
                         
                         // Stack state
-                        isPlaying = player.isPlaying
                         isPaused = false
                         songDuration = player.duration
                         
@@ -117,9 +115,8 @@ class PlayerEngine {
     }
     
     func stopSong() {
-        if isPlaying {
+        if player.isPlaying {
             player.stop()
-            isPlaying = false
             isPaused = false
         }
     }
@@ -140,12 +137,13 @@ class PlayerEngine {
         playSong()
     }
     
+    func playAt(time: TimeInterval) {
+        player.currentTime = time
+    }
+    
     func updatePlayTime() {
-        if isPlaying {
-            if let currentTime = player?.currentTime {
-                playTime = currentTime
-                delegate?.playtimeHasChanged(playTime)
-            }
+        if player.isPlaying {
+            delegate?.playtimeHasChanged(player.currentTime)
         } else {
             timer.invalidate()
         }

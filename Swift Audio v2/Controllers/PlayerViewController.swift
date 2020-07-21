@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class PlayerViewController: UIViewController {
 
@@ -24,6 +25,7 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var playerSlider: UISlider!
     
     var currentSong: Media?
+    var userIsAdjustingSlider = false
     
     var timeFormat: DateFormatter {
         let formatter = DateFormatter()
@@ -36,6 +38,7 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         
         sharedPlayerEngine.delegate = self
+        sharedPlayerEngine.player.delegate = self
         
         // Initial View setup
         initializePlayer()
@@ -55,6 +58,7 @@ class PlayerViewController: UIViewController {
         sharedPlayerEngine.stopSong()
         refreshUI()
         playtimeLabel.text = "00:00"
+        playerSlider.value = 0
     }
     
     @IBAction func nextSongPressed(_ sender: UIButton) {
@@ -75,6 +79,18 @@ class PlayerViewController: UIViewController {
         toggleImageColor(for: repeatButton, with: sharedPlayerEngine.isRepeatOn)
     }
     
+    @IBAction func currentTimeChanged(_ sender: UISlider) {
+        sharedPlayerEngine.playAt(time: Double(sender.value))
+    }
+    
+    @IBAction func sliderTouchUp(_ sender: UISlider) {
+        userIsAdjustingSlider = false
+    }
+    
+    @IBAction func sliderDragInside(_ sender: UISlider) {
+        userIsAdjustingSlider = true
+    }
+    
     //MARK: - Private Methods
     private func initializePlayer() {
         if let song = currentSong {
@@ -90,11 +106,14 @@ class PlayerViewController: UIViewController {
     
     private func refreshUI() {
         // Player/Pause button state:
-        if sharedPlayerEngine.isPlaying && !sharedPlayerEngine.isPaused {
+        if sharedPlayerEngine.player.isPlaying && !sharedPlayerEngine.isPaused {
             playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
         } else {
             playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
         }
+        
+        // Slider Max value
+        playerSlider.maximumValue = Float(sharedPlayerEngine.songDuration)
         
         // Song metadata related state:
         durationLabel.text = timeIntervalToString(for: sharedPlayerEngine.songDuration)
@@ -128,12 +147,21 @@ extension PlayerViewController: PlayerEngineDelegate {
     func playtimeHasChanged(_ playTime: TimeInterval) {
         playtimeLabel.text = timeIntervalToString(for: playTime)
         
-        let timePlayed = sharedPlayerEngine.playTime / sharedPlayerEngine.songDuration
-        playerSlider.value = Float(timePlayed)
+        if !userIsAdjustingSlider {
+            playerSlider.value = Float(playTime)
+        }
     }
     
     func newSongStarted(_ media: Media) {
         currentSong = media
         refreshUI()
     }
+}
+
+extension PlayerViewController: AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        refreshUI()
+    }
+    
 }

@@ -79,7 +79,7 @@ struct MediaFileManager {
             }
             
             // Save the Library
-            //self.dataService.saveLibrary()
+            self.dataService.saveLibrary()
         })
                 
         return mediaFromNetwork
