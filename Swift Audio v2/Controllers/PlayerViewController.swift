@@ -24,8 +24,15 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var durationLabel: UILabel!
     @IBOutlet weak var playerSlider: UISlider!
     
-    var currentSong: Media?
+    var currentSong: Media? {
+        willSet {
+            if sharedPlayerEngine.currentSong == newValue {
+                isResumingSong = true
+            }
+        }
+    }
     private var userIsAdjustingSlider = false
+    private var isResumingSong = false
     
     private var timeFormat: DateFormatter {
         let formatter = DateFormatter()
@@ -44,7 +51,9 @@ class PlayerViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        sharedPlayerEngine.engagePlayer(forSong: currentSong)
+        if !isResumingSong {
+            sharedPlayerEngine.engagePlayer(forSong: currentSong)
+        }
     }
     
     //MARK: - IBActions
@@ -116,7 +125,11 @@ class PlayerViewController: UIViewController {
         }
         
         // Stop the current song (if already playing)
-        sharedPlayerEngine.stopSong()
+        if !isResumingSong {
+            sharedPlayerEngine.stopSong()
+        } else {
+            refreshUI()
+        }
     }
     
     private func refreshUI() {

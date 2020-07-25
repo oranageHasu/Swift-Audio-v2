@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import MarqueeLabel
 
 class LibraryViewController: UIViewController {
 
     @IBOutlet weak var groupSegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchbar: UISearchBar!
+    @IBOutlet weak var nowPlaying: UIStackView!
+    @IBOutlet weak var currentSongLabel: MarqueeLabel!
     
     var dataService = DataService()
     
@@ -32,8 +35,14 @@ class LibraryViewController: UIViewController {
         
         media = dataService.loadLibrary()
         sortedMedia = media
+        
+        refreshUI()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        refreshUI()
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // get a reference to the Player ViewController
         let player = segue.destination as! PlayerViewController
@@ -51,7 +60,12 @@ class LibraryViewController: UIViewController {
         UIApplication.shared.windows.first?.rootViewController?.present(picker, animated: true)
     }
     
-    func directorySelected(url: URL) {
+    @IBAction func nowPlayingClicked(_ sender: UIButton) {
+        // Segue to the Player View
+        self.performSegue(withIdentifier: Constants.playerSegue, sender: self)
+    }
+    
+    private func directorySelected(url: URL) {
         print("File URL: \(url)")
         
         // Clear the current Media collection
@@ -89,8 +103,24 @@ class LibraryViewController: UIViewController {
         }
     }
     
-    func directoryPickerDismissed() {
+    private func directoryPickerDismissed() {
         print("Prompt dismissed.")
+    }
+    
+    private func refreshUI() {
+        nowPlaying.isHidden = !sharedPlayerEngine.isPlaying()
+        
+        if sharedPlayerEngine.isPlaying() {
+            if let song = sharedPlayerEngine.currentSong {
+                currentSongLabel.text = song.songFormatted()
+            } else {
+                currentSongLabel.text = ""
+            }
+        }
+        
+        currentSongLabel.type = .continuous
+        currentSongLabel.speed = .duration(10)
+        currentSongLabel.fadeLength = 15.0
     }
 }
 
@@ -120,9 +150,10 @@ extension LibraryViewController: UITableViewDelegate {
         // Set the current Media selection
         currentSong = sortedMedia[indexPath.row]
         
-        // Perform Touch interaction with the media here
+        // Segue to the Player View
         self.performSegue(withIdentifier: Constants.playerSegue, sender: self)
     }
+    
 }
 
 //MARK: - UISearchBar Delegate
