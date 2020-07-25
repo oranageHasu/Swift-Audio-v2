@@ -25,9 +25,9 @@ class PlayerViewController: UIViewController {
     @IBOutlet weak var playerSlider: UISlider!
     
     var currentSong: Media?
-    var userIsAdjustingSlider = false
+    private var userIsAdjustingSlider = false
     
-    var timeFormat: DateFormatter {
+    private var timeFormat: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = "mm:ss"
         
@@ -38,7 +38,6 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         
         sharedPlayerEngine.delegate = self
-        sharedPlayerEngine.player.delegate = self
         
         // Initial View setup
         initializePlayer()
@@ -70,13 +69,13 @@ class PlayerViewController: UIViewController {
     }
     
     @IBAction func shufflePressed(_ sender: UIButton) {
-        sharedPlayerEngine.isShuffleOn.toggle()
-        toggleImageColor(for: shuffleButton, with: sharedPlayerEngine.isShuffleOn)
+        sharedPlayerEngine.toggleShuffle()
+        toggleImageColor(for: shuffleButton, sharedPlayerEngine.isShuffleOn)
     }
     
     @IBAction func repeatPressed(_ sender: UIButton) {
-        sharedPlayerEngine.isRepeatOn.toggle()
-        toggleImageColor(for: repeatButton, with: sharedPlayerEngine.isRepeatOn)
+        sharedPlayerEngine.toggleRepeat()
+        toggleImageColor(for: repeatButton, sharedPlayerEngine.isRepeatOn)
     }
     
     @IBAction func currentTimeChanged(_ sender: UISlider) {
@@ -122,7 +121,7 @@ class PlayerViewController: UIViewController {
     
     private func refreshUI() {
         // Player/Pause button state:
-        if sharedPlayerEngine.player.isPlaying && !sharedPlayerEngine.isPaused {
+        if sharedPlayerEngine.isPlaying() && !sharedPlayerEngine.isPaused {
             playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
         } else {
             playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
@@ -143,7 +142,7 @@ class PlayerViewController: UIViewController {
         }
     }
     
-    private func toggleImageColor(for button: UIButton!, with state: Bool) {
+    private func toggleImageColor(for button: UIButton!,_ state: Bool) {
         if state {
             button.tintColor = UIColor.systemBlue
         } else {
@@ -172,12 +171,4 @@ extension PlayerViewController: PlayerEngineDelegate {
         currentSong = media
         refreshUI()
     }
-}
-
-extension PlayerViewController: AVAudioPlayerDelegate {
-    
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        refreshUI()
-    }
-    
 }

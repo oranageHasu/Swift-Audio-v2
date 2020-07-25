@@ -14,38 +14,33 @@ protocol PlayerEngineDelegate {
     func newSongStarted(_ media: Media)
 }
 
-enum Direction {
-    case rewind
-    case fastforward
-}
-
 // Global PlayerEngine instance
 // This allows us to move around screens while maintaining state
-let sharedPlayerEngine = PlayerEngine()
+var sharedPlayerEngine = PlayerEngine()
 
-class PlayerEngine {
+class PlayerEngine: NSObject {
     
     // Audio States
-    var isShuffleOn = false
-    var isRepeatOn = false
-    var isPaused = false
+    private(set) var isShuffleOn = false
+    private(set) var isRepeatOn = false
+    private(set) var isPaused = false
     
     // Player
-    var player = AVAudioPlayer()
-    var playTime: TimeInterval = 0.0
-    var songDuration: TimeInterval = 0.0
-    var timer: Timer!
-    var skipTimer: Timer!
+    private var player = AVAudioPlayer()
+    private var playTime: TimeInterval = 0.0
+    private(set) var songDuration: TimeInterval = 0.0
+    private var playtimeTimer: Timer!
+    private var skipTimer: Timer!
     
-    // Media
+    // Media Cache
     private(set) var currentSong: Media?
     
-    // Delegate
     var delegate: PlayerEngineDelegate?
     
-    //MARK: - Player related methods
+    //MARK: - Public Methods
     func engagePlayer(forSong media: Media?) {
         currentSong = media
+        player.delegate = self
         
         // Engage the Media Player, allowing this engine to decide what to do based on its state.
         if !player.isPlaying {
@@ -61,6 +56,53 @@ class PlayerEngine {
         }
     }
     
+    func stopSong() {
+        if player.isPlaying {
+            player.stop()
+            isPaused = false
+        }
+    }
+    
+    func lastSong() {
+        playSong()
+    }
+    
+    func nextSong() {
+        playSong()
+    }
+    
+    func playAt(time: TimeInterval) {
+        player.currentTime = time
+    }
+    
+    func beginSkip(_ direction: Direction) {
+        skipTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            if direction == Direction.fastforward {
+                print(self.player.currentTime)
+                self.playAt(time: self.player.currentTime+5)
+            } else {
+                self.playAt(time: self.player.currentTime-5)
+            }
+        }
+    }
+    
+    func endSkip() {
+        skipTimer.invalidate()
+    }
+    
+    func toggleShuffle() {
+        isShuffleOn.toggle()
+    }
+    
+    func toggleRepeat() {
+        isRepeatOn.toggle()
+    }
+    
+    func isPlaying() -> Bool {
+        return player.isPlaying
+    }
+    
+    //MARK: - Private Methods
     private func playSong() {
         // Initialize the Audio Player
         if let song = currentSong {
@@ -93,7 +135,7 @@ class PlayerEngine {
                         songDuration = player.duration
                         
                         // Playtime timer
-                        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+                        playtimeTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
                             self.updatePlayTime()
                         }
                         
@@ -120,53 +162,20 @@ class PlayerEngine {
         isPaused = false
     }
     
-    func stopSong() {
-        if player.isPlaying {
-            player.stop()
-            isPaused = false
-        }
-    }
-    
-    func lastSong() {
-        // Stop playing the current song
-        stopSong()
-        
-        // Play the new song
-        playSong()
-    }
-    
-    func nextSong() {
-        // Stop playing the current song
-        stopSong()
-
-        // Play the new song
-        playSong()
-    }
-    
-    func playAt(time: TimeInterval) {
-        player.currentTime = time
-    }
-    
-    func beginSkip(_ direction: Direction) {
-        skipTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
-            if direction == Direction.fastforward {
-                print(self.player.currentTime)
-                self.playAt(time: self.player.currentTime+5)
-            } else {
-                self.playAt(time: self.player.currentTime-5)
-            }
-        }
-    }
-    
-    func endSkip() {
-        skipTimer.invalidate()
-    }
-    
-    func updatePlayTime() {
+    private func updatePlayTime() {
         if player.isPlaying {
             delegate?.playtimeHasChanged(player.currentTime)
         } else {
-            timer.invalidate()
+            playtimeTimer.invalidate()
         }
     }
+}
+
+//MARK: - AvAudioPlayer Delegate Methods
+extension PlayerEngine: AVAudioPlayerDelegate {
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        nextSong()
+    }
+    
 }
