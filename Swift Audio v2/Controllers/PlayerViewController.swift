@@ -91,6 +91,22 @@ class PlayerViewController: UIViewController {
         userIsAdjustingSlider = true
     }
     
+    @IBAction func rewindTouchDown(_ sender: UIButton) {
+        sharedPlayerEngine.beginSkip(.rewind)
+    }
+    
+    @IBAction func rewindTouchUp(_ sender: UIButton) {
+        sharedPlayerEngine.endSkip()
+    }
+    
+    @IBAction func fastforwardTouchDown(_ sender: UIButton) {
+        sharedPlayerEngine.beginSkip(.fastforward)
+    }
+    
+    @IBAction func fastforwardTouchUp(_ sender: UIButton) {
+        sharedPlayerEngine.endSkip()
+    }
+    
     //MARK: - Private Methods
     private func initializePlayer() {
         if let song = currentSong {

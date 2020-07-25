@@ -14,6 +14,11 @@ protocol PlayerEngineDelegate {
     func newSongStarted(_ media: Media)
 }
 
+enum Direction {
+    case rewind
+    case fastforward
+}
+
 // Global PlayerEngine instance
 // This allows us to move around screens while maintaining state
 let sharedPlayerEngine = PlayerEngine()
@@ -30,6 +35,7 @@ class PlayerEngine {
     var playTime: TimeInterval = 0.0
     var songDuration: TimeInterval = 0.0
     var timer: Timer!
+    var skipTimer: Timer!
     
     // Media
     private(set) var currentSong: Media?
@@ -139,6 +145,21 @@ class PlayerEngine {
     
     func playAt(time: TimeInterval) {
         player.currentTime = time
+    }
+    
+    func beginSkip(_ direction: Direction) {
+        skipTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
+            if direction == Direction.fastforward {
+                print(self.player.currentTime)
+                self.playAt(time: self.player.currentTime+5)
+            } else {
+                self.playAt(time: self.player.currentTime-5)
+            }
+        }
+    }
+    
+    func endSkip() {
+        skipTimer.invalidate()
     }
     
     func updatePlayTime() {

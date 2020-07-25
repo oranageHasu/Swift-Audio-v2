@@ -229,6 +229,10 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <state key="normal" image="backward.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="rewindTouchDown:" destination="SNM-D5-s6Z" eventType="touchDown" id="sel-lP-jfV"/>
+                                                                    <action selector="rewindTouchUp:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="Plf-ic-V2N"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hLy-4L-6lE" userLabel="Stop">
                                                                 <rect key="frame" x="65" y="0.0" width="17.666666666666671" height="40"/>
@@ -259,6 +263,10 @@
                                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                                 <color key="tintColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                 <state key="normal" image="forward.fill" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="fastforwardTouchDown:" destination="SNM-D5-s6Z" eventType="touchDown" id="K9q-FV-2QS"/>
+                                                                    <action selector="fastforwardTouchUp:" destination="SNM-D5-s6Z" eventType="touchUpInside" id="5T4-kw-mbv"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b9H-ir-nn1" userLabel="NextSong">
                                                                 <rect key="frame" x="178" y="0.0" width="19.666666666666657" height="40"/>
