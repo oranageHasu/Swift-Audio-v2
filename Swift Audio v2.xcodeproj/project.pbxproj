@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,6 +29,7 @@
 		3CE11A0C24C3C65E00D6ABC2 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE11A0B24C3C65E00D6ABC2 /* DataService.swift */; };
 		3CE11A1C24CCCA2900D6ABC2 /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE11A1B24CCCA2900D6ABC2 /* Enumerations.swift */; };
 		3CE11A2024CCE87500D6ABC2 /* MediaExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE11A1F24CCE87500D6ABC2 /* MediaExtension.swift */; };
+		3CE11A2224CDD71D00D6ABC2 /* UserPreferenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE11A2124CDD71D00D6ABC2 /* UserPreferenceViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,7 @@
 		3CE11A0B24C3C65E00D6ABC2 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		3CE11A1B24CCCA2900D6ABC2 /* Enumerations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		3CE11A1F24CCE87500D6ABC2 /* MediaExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaExtension.swift; sourceTree = "<group>"; };
+		3CE11A2124CDD71D00D6ABC2 /* UserPreferenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPreferenceViewController.swift; sourceTree = "<group>"; };
 		5F73A842D9F02388EA7C635C /* Pods-Swift Audio v2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift Audio v2.release.xcconfig"; path = "Target Support Files/Pods-Swift Audio v2/Pods-Swift Audio v2.release.xcconfig"; sourceTree = "<group>"; };
 		8C09B5A68C7E90CD1896A5BF /* Pods_Swift_Audio_v2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Swift_Audio_v2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1E26F97C9983BAC054CFBD2 /* Pods-Swift Audio v2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swift Audio v2.debug.xcconfig"; path = "Target Support Files/Pods-Swift Audio v2/Pods-Swift Audio v2.debug.xcconfig"; sourceTree = "<group>"; };
@@ -189,8 +191,9 @@
 			isa = PBXGroup;
 			children = (
 				3C926FC024B9213100692688 /* LibraryViewController.swift */,
-				3C926FF324BA745500692688 /* DocumentPickerViewController.swift */,
 				3C92709124BD1D2900692688 /* PlayerViewController.swift */,
+				3CE11A2124CDD71D00D6ABC2 /* UserPreferenceViewController.swift */,
+				3C926FF324BA745500692688 /* DocumentPickerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -236,7 +239,6 @@
 				B1E26F97C9983BAC054CFBD2 /* Pods-Swift Audio v2.debug.xcconfig */,
 				5F73A842D9F02388EA7C635C /* Pods-Swift Audio v2.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -436,6 +438,7 @@
 				3C926FBD24B9213100692688 /* AppDelegate.swift in Sources */,
 				3CE11A0924C33D9500D6ABC2 /* PlayerEngine.swift in Sources */,
 				3C926FF624BA755200692688 /* MediaFileManager.swift in Sources */,
+				3CE11A2224CDD71D00D6ABC2 /* UserPreferenceViewController.swift in Sources */,
 				3C92709224BD1D2900692688 /* PlayerViewController.swift in Sources */,
 				3C926FBF24B9213100692688 /* SceneDelegate.swift in Sources */,
 				3CE11A1C24CCCA2900D6ABC2 /* Enumerations.swift in Sources */,

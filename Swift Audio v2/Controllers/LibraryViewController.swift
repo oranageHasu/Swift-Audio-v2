@@ -44,11 +44,17 @@ class LibraryViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // get a reference to the Player ViewController
-        let player = segue.destination as! PlayerViewController
         
-        // Supply the song to play
-        player.currentSong = currentSong
+        if segue.destination is PlayerViewController {
+            // get a reference to the Player ViewController
+            let player = segue.destination as! PlayerViewController
+            
+            // Supply the song to play
+            player.currentSong = currentSong
+        } else {
+            print("Unknown segue.")
+        }
+        
     }
     
     @IBAction func importDirectoryPressed(_ sender: UIButton) {

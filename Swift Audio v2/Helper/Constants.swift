@@ -19,6 +19,7 @@ struct Constants {
     
     // Segues
     static let playerSegue = "LibraryToPlayer"
+    static let userProfileSegue = "LibraryToUserProfile"
     
     // App Colors
     struct BrandColors {
