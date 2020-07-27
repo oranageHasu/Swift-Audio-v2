@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2EBA77A530EEED382396F256 /* Pods_Swift_Audio_v2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C09B5A68C7E90CD1896A5BF /* Pods_Swift_Audio_v2.framework */; };
+		3C3D46FC24CE372F008D409C /* MusixMatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3D46FB24CE372F008D409C /* MusixMatchService.swift */; };
 		3C926FBD24B9213100692688 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FBC24B9213100692688 /* AppDelegate.swift */; };
 		3C926FBF24B9213100692688 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FBE24B9213100692688 /* SceneDelegate.swift */; };
 		3C926FC124B9213100692688 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FC024B9213100692688 /* LibraryViewController.swift */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C3D46FB24CE372F008D409C /* MusixMatchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusixMatchService.swift; sourceTree = "<group>"; };
 		3C926FB924B9213100692688 /* Swift Audio v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift Audio v2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C926FBC24B9213100692688 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C926FBE24B9213100692688 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				3CE11A0B24C3C65E00D6ABC2 /* DataService.swift */,
+				3C3D46FB24CE372F008D409C /* MusixMatchService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 				3C926FC724B9213100692688 /* SwiftAudio.xcdatamodeld in Sources */,
 				3CE11A0C24C3C65E00D6ABC2 /* DataService.swift in Sources */,
 				3CE11A2024CCE87500D6ABC2 /* MediaExtension.swift in Sources */,
+				3C3D46FC24CE372F008D409C /* MusixMatchService.swift in Sources */,
 				3C926FC124B9213100692688 /* LibraryViewController.swift in Sources */,
 				3C92704524BBCF5B00692688 /* Constants.swift in Sources */,
 				3C92704224BBCC6100692688 /* MediaItemViewCell.swift in Sources */,

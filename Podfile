@@ -5,5 +5,7 @@ target 'Swift Audio v2' do
 
   # Pods for Swift Audio v2
   pod 'MarqueeLabel'
-
+  pod 'Alamofire', '~> 4.4'
+  pod 'SwiftyJSON'
+  
 end

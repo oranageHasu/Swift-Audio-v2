@@ -8,6 +8,7 @@
 
 import UIKit
 import AVKit
+import MarqueeLabel
 
 class PlayerViewController: UIViewController {
 
@@ -31,6 +32,8 @@ class PlayerViewController: UIViewController {
             }
         }
     }
+    
+    private var musixMatchService = MusixMatchService()
     private var userIsAdjustingSlider = false
     private var isResumingSong = false
     
@@ -45,9 +48,12 @@ class PlayerViewController: UIViewController {
         super.viewDidLoad()
         
         sharedPlayerEngine.delegate = self
+        musixMatchService.delegate = self
         
         // Initial View setup
         initializePlayer()
+        
+        //musixMatchService.getTrackLyrics(for: 66976660)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -184,4 +190,13 @@ extension PlayerViewController: PlayerEngineDelegate {
         currentSong = media
         refreshUI()
     }
+}
+
+//MARK: - MusixMatchService delegate
+extension PlayerViewController: MusixMatchServiceDelegate {
+    
+    func songLyricsAvailable(lyrics: String) {
+        print(lyrics)
+    }
+    
 }
