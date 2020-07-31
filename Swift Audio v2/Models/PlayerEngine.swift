@@ -179,3 +179,21 @@ extension PlayerEngine: AVAudioPlayerDelegate {
     }
     
 }
+
+//MARK: - SpotifyService delegagte
+extension PlayerViewController: SpotifyServiceDelegate {
+    
+    func connected(_ spotifyService: SpotifyService) {
+        print("PlayerEngine - Spotify Connected.")
+    }
+    
+    func disconnected(_ spotifyService: SpotifyService) {
+        print("PlayerEngine - Spotify Disconnected.")
+    }
+    
+    func playerStateChanged(_ spotifyService: SpotifyService, _ media: Media) {
+        print("PlayerEngine - Spotify player state changed.")
+        print("Media: \(media)")
+    }
+    
+}

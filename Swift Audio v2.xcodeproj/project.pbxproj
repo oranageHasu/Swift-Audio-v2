@@ -11,6 +11,7 @@
 		3C3D46FC24CE372F008D409C /* MusixMatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3D46FB24CE372F008D409C /* MusixMatchService.swift */; };
 		3C3D46FE24CF922B008D409C /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C3D46FD24CF922B008D409C /* SpotifyiOS.framework */; };
 		3C3D470224D20B4B008D409C /* BridgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3D470124D20B4B008D409C /* BridgeViewController.m */; };
+		3C3D472824D4A847008D409C /* SpotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3D472724D4A847008D409C /* SpotifyService.swift */; };
 		3C926FBD24B9213100692688 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FBC24B9213100692688 /* AppDelegate.swift */; };
 		3C926FBF24B9213100692688 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FBE24B9213100692688 /* SceneDelegate.swift */; };
 		3C926FC124B9213100692688 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FC024B9213100692688 /* LibraryViewController.swift */; };
@@ -58,6 +59,7 @@
 		3C3D46FF24D20B4A008D409C /* Swift Audio v2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swift Audio v2-Bridging-Header.h"; sourceTree = "<group>"; };
 		3C3D470024D20B4B008D409C /* BridgeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeViewController.h; sourceTree = "<group>"; };
 		3C3D470124D20B4B008D409C /* BridgeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BridgeViewController.m; sourceTree = "<group>"; };
+		3C3D472724D4A847008D409C /* SpotifyService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyService.swift; sourceTree = "<group>"; };
 		3C926FB924B9213100692688 /* Swift Audio v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift Audio v2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C926FBC24B9213100692688 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C926FBE24B9213100692688 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 		3CE11A0A24C3C64E00D6ABC2 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3C3D472724D4A847008D409C /* SpotifyService.swift */,
 				3CE11A0B24C3C65E00D6ABC2 /* DataService.swift */,
 				3C3D46FB24CE372F008D409C /* MusixMatchService.swift */,
 			);
@@ -453,6 +456,7 @@
 				3C92704224BBCC6100692688 /* MediaItemViewCell.swift in Sources */,
 				3C926FBD24B9213100692688 /* AppDelegate.swift in Sources */,
 				3CE11A0924C33D9500D6ABC2 /* PlayerEngine.swift in Sources */,
+				3C3D472824D4A847008D409C /* SpotifyService.swift in Sources */,
 				3C926FF624BA755200692688 /* MediaFileManager.swift in Sources */,
 				3CE11A2224CDD71D00D6ABC2 /* UserPreferenceViewController.swift in Sources */,
 				3C92709224BD1D2900692688 /* PlayerViewController.swift in Sources */,
