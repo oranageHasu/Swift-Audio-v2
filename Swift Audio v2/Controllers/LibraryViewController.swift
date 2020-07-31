@@ -10,7 +10,7 @@ import UIKit
 import MarqueeLabel
 
 class LibraryViewController: UIViewController {
-
+    
     @IBOutlet weak var groupSegmentedControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchbar: UISearchBar!
@@ -69,6 +69,18 @@ class LibraryViewController: UIViewController {
     @IBAction func nowPlayingClicked(_ sender: UIButton) {
         // Segue to the Player View
         self.performSegue(withIdentifier: Constants.playerSegue, sender: self)
+    }
+    
+    public func appRemoteDisconnect() {
+        print("App Remote Disconnecting")
+    }
+    
+    public func appRemoteConnecting() {
+        print("App Remote Connecting")
+    }
+    
+    public func appRemoteConnected() {
+        print("App Remote Connected")
     }
     
     private func directorySelected(url: URL) {

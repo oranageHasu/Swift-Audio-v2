@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2EBA77A530EEED382396F256 /* Pods_Swift_Audio_v2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C09B5A68C7E90CD1896A5BF /* Pods_Swift_Audio_v2.framework */; };
 		3C3D46FC24CE372F008D409C /* MusixMatchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C3D46FB24CE372F008D409C /* MusixMatchService.swift */; };
+		3C3D46FE24CF922B008D409C /* SpotifyiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C3D46FD24CF922B008D409C /* SpotifyiOS.framework */; };
+		3C3D470224D20B4B008D409C /* BridgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3D470124D20B4B008D409C /* BridgeViewController.m */; };
 		3C926FBD24B9213100692688 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FBC24B9213100692688 /* AppDelegate.swift */; };
 		3C926FBF24B9213100692688 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FBE24B9213100692688 /* SceneDelegate.swift */; };
 		3C926FC124B9213100692688 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C926FC024B9213100692688 /* LibraryViewController.swift */; };
@@ -52,6 +54,10 @@
 
 /* Begin PBXFileReference section */
 		3C3D46FB24CE372F008D409C /* MusixMatchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusixMatchService.swift; sourceTree = "<group>"; };
+		3C3D46FD24CF922B008D409C /* SpotifyiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SpotifyiOS.framework; sourceTree = "<group>"; };
+		3C3D46FF24D20B4A008D409C /* Swift Audio v2-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Swift Audio v2-Bridging-Header.h"; sourceTree = "<group>"; };
+		3C3D470024D20B4B008D409C /* BridgeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgeViewController.h; sourceTree = "<group>"; };
+		3C3D470124D20B4B008D409C /* BridgeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BridgeViewController.m; sourceTree = "<group>"; };
 		3C926FB924B9213100692688 /* Swift Audio v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift Audio v2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C926FBC24B9213100692688 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C926FBE24B9213100692688 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EBA77A530EEED382396F256 /* Pods_Swift_Audio_v2.framework in Frameworks */,
+				3C3D46FE24CF922B008D409C /* SpotifyiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,6 +221,9 @@
 			children = (
 				3C92704424BBCF5B00692688 /* Constants.swift */,
 				3CE11A1B24CCCA2900D6ABC2 /* Enumerations.swift */,
+				3C3D470024D20B4B008D409C /* BridgeViewController.h */,
+				3C3D470124D20B4B008D409C /* BridgeViewController.m */,
+				3C3D46FF24D20B4A008D409C /* Swift Audio v2-Bridging-Header.h */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -248,6 +258,7 @@
 		ADF51FD7281A7CB9A4388EDF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3C3D46FD24CF922B008D409C /* SpotifyiOS.framework */,
 				8C09B5A68C7E90CD1896A5BF /* Pods_Swift_Audio_v2.framework */,
 			);
 			name = Frameworks;
@@ -323,6 +334,7 @@
 				TargetAttributes = {
 					3C926FB824B9213100692688 = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1160;
 					};
 					3C926FD124B9213700692688 = {
 						CreatedOnToolsVersion = 11.5;
@@ -444,6 +456,7 @@
 				3C926FF624BA755200692688 /* MediaFileManager.swift in Sources */,
 				3CE11A2224CDD71D00D6ABC2 /* UserPreferenceViewController.swift in Sources */,
 				3C92709224BD1D2900692688 /* PlayerViewController.swift in Sources */,
+				3C3D470224D20B4B008D409C /* BridgeViewController.m in Sources */,
 				3C926FBF24B9213100692688 /* SceneDelegate.swift in Sources */,
 				3CE11A1C24CCCA2900D6ABC2 /* Enumerations.swift in Sources */,
 			);
@@ -619,15 +632,22 @@
 			baseConfigurationReference = B1E26F97C9983BAC054CFBD2 /* Pods-Swift Audio v2.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Z5A22263G;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Swift Audio v2/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "OranageHasu.Swift-Audio-v2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oranagehasu.Swift-Audio";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swift Audio v2/Helper/Swift Audio v2-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -638,15 +658,21 @@
 			baseConfigurationReference = 5F73A842D9F02388EA7C635C /* Pods-Swift Audio v2.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2Z5A22263G;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Swift Audio v2/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "OranageHasu.Swift-Audio-v2";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.oranagehasu.Swift-Audio";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Swift Audio v2/Helper/Swift Audio v2-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
