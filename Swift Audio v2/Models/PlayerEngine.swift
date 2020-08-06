@@ -47,57 +47,48 @@ class PlayerEngine: NSObject {
         currentSong = media
         player.delegate = self
         
-        // Hack for now.  We need duel state management for native vs Spotify
         if !isOutsourced {
-            isOutsourced = false
-            
-            // Engage the Media Player, allowing this engine to decide what to do based on its state.
-            if !player.isPlaying {
-                
-                if isPaused {
-                    resumeSong()
-                } else {
-                    playSong()
-                }
-                
-            } else {
-                pauseSong()
-            }
+            engagePlayer()
         } else {
-            
-            if (!isPaused) {
-                sharedSpotifyService.pause()
-            } else {
-                sharedSpotifyService.resume()
-                playtimeTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-                    self.updatePlayTime()
-                }
-            }
-            
-            isPaused.toggle()
-
+            engagePlayerSpotify()
         }
     }
     
     func engagePlayerForSpotify() {
         isOutsourced = true
         sharedSpotifyService.delegate = self
-        sharedSpotifyService.invokeSpotifyApp()
+        
+        if !sharedSpotifyService.hasAuthorized {
+            sharedSpotifyService.invokeSpotifyApp()
+        }
     }
     
     func stopSong() {
-        if player.isPlaying {
-            player.stop()
-            isPaused = false
+        if isPlaying() {
+            if isOutsourced {
+                sharedSpotifyService.pause()
+                isPaused = true
+            } else {
+                player.stop()
+                isPaused = false
+            }
         }
     }
     
     func lastSong() {
-        playSong()
+        if isOutsourced {
+            sharedSpotifyService.prevSong()
+        } else {
+            playSong()
+        }
     }
     
     func nextSong() {
-        playSong()
+        if isOutsourced {
+            sharedSpotifyService.nextSong()
+        } else {
+            playSong()
+        }
     }
     
     func playAt(time: TimeInterval) {
@@ -107,7 +98,6 @@ class PlayerEngine: NSObject {
     func beginSkip(_ direction: Direction) {
         skipTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
             if direction == Direction.fastforward {
-                print(self.player.currentTime)
                 self.playAt(time: self.player.currentTime+5)
             } else {
                 self.playAt(time: self.player.currentTime-5)
@@ -121,17 +111,51 @@ class PlayerEngine: NSObject {
     
     func toggleShuffle() {
         isShuffleOn.toggle()
+        
+        if isOutsourced {
+            sharedSpotifyService.toggleShuffle(isShuffleOn)
+        }
     }
     
     func toggleRepeat() {
         isRepeatOn.toggle()
+
+        if isOutsourced {
+            sharedSpotifyService.toggleRepeat(isRepeatOn)
+        }
     }
     
     func isPlaying() -> Bool {
-        return player.isPlaying
+        return player.isPlaying || (isOutsourced && !isPaused)
     }
     
     //MARK: - Private Methods
+    private func engagePlayer() {
+        isOutsourced = false
+        
+        // Engage the Media Player, allowing this engine to decide what to do based on its state.
+        if !player.isPlaying {
+            if isPaused {
+                resumeSong()
+            } else {
+                playSong()
+            }
+        } else {
+            pauseSong()
+        }
+    }
+    
+    private func engagePlayerSpotify() {
+        if (!isPaused) {
+            sharedSpotifyService.pause()
+        } else {
+            sharedSpotifyService.resume()
+            startPlayerTimer()
+        }
+        
+        isPaused.toggle()
+    }
+    
     private func playSong() {
         // Initialize the Audio Player
         if let song = currentSong {
@@ -164,9 +188,7 @@ class PlayerEngine: NSObject {
                         songDuration = player.duration
                         
                         // Playtime timer
-                        playtimeTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-                            self.updatePlayTime()
-                        }
+                        startPlayerTimer()
                         
                         // Let everyone know what magic just went down.
                         delegate?.newSongStarted(song)
@@ -178,6 +200,21 @@ class PlayerEngine: NSObject {
                 print(error)
             }
         }
+    }
+    
+    private func playSpotifySong(at playbackPosition: Int, for song: Media) {
+        currentSong = song
+        isPaused = false
+        
+        // Stack state
+        playTime = Double(playbackPosition) / 1000
+        songDuration = song.duration
+        
+        // Start the Player Timer
+        startPlayerTimer()
+        
+        // Let everyone know what magic just went down.
+        delegate?.newSongStarted(song)
     }
     
     private func pauseSong() {
@@ -199,6 +236,17 @@ class PlayerEngine: NSObject {
             delegate?.playtimeHasChanged(playTime)
         } else {
             playtimeTimer.invalidate()
+        }
+    }
+    
+    private func startPlayerTimer() {
+        // Always invalidate the timer before using it
+        if let timer = playtimeTimer {
+            timer.invalidate()
+        }
+    
+        playtimeTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            self.updatePlayTime()
         }
     }
 }
@@ -224,21 +272,7 @@ extension PlayerEngine: SpotifyServiceDelegate {
     }
     
     func playerStateChanged(_ spotifyService: SpotifyService, _ media: Media) {
-        print("Player Position: \(spotifyService.playbackPosition)")
-        
-        // Stack state
-        currentSong = media
-        isPaused = false
-        playTime = Double(spotifyService.playbackPosition) / 1000
-        songDuration = media.duration
-        
-        // Playtime timer
-        playtimeTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
-            self.updatePlayTime()
-        }
-        
-        // Let everyone know what magic just went down.
-        delegate?.newSongStarted(media)
+        playSpotifySong(at: spotifyService.playbackPosition, for: media)
     }
     
 }

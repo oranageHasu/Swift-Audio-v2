@@ -51,7 +51,12 @@ class LibraryViewController: UIViewController {
             let player = segue.destination as! PlayerViewController
             
             // Supply the song to play
-            player.currentSong = currentSong
+            if isPlayingSpotify {
+                player.currentSong = sharedPlayerEngine.currentSong
+            } else {
+                player.currentSong = currentSong
+            }
+            
             player.shouldUseSpotifyService = isPlayingSpotify
         } else {
             print("Unknown segue.")

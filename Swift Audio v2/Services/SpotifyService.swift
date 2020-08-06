@@ -85,6 +85,33 @@ class SpotifyService: NSObject {
             print("To Do: Resume.")
         })
     }
+    
+    public func nextSong() {
+        appRemote.playerAPI?.skip(toNext: { (value, error) in
+            print("To Do: Skip.")
+        })
+    }
+    
+    public func prevSong() {
+        appRemote.playerAPI?.skip(toPrevious: { (value, error) in
+            if let error = error {
+                print(error)
+            }
+            print("To Do: Previous.")
+        })
+    }
+    
+    public func toggleShuffle(_ shuffle: Bool) {
+        appRemote.playerAPI?.setShuffle(shuffle, callback: { (value, error) in
+            print("To Do: Shuffle")
+        })
+    }
+    
+    public func toggleRepeat(_ repeat: Bool) {
+        appRemote.playerAPI?.setRepeatMode(SPTAppRemotePlaybackOptionsRepeatMode.track, callback: { (value, error) in
+            print("To Do: Repeat")
+        })
+    }
 }
 
 extension SpotifyService: SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate {
