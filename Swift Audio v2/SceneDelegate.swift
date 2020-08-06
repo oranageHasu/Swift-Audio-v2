@@ -31,11 +31,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-
+        
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
-        
+        if !sharedSpotifyService.appRemote.isConnected && sharedSpotifyService.hasAuthorized {
+            sharedSpotifyService.connect()
+        }
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
