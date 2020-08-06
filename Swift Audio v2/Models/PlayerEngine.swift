@@ -32,6 +32,11 @@ class PlayerEngine: NSObject {
     private var playtimeTimer: Timer!
     private var skipTimer: Timer!
     
+    // The player engine can be running the show using AVAudioPlayer
+    // Alternatively, the User could be playing Spotify content (and potentially other 3rd party service content)
+    // Keep track of our "outsource state" here
+    private(set) var isOutsourced = false
+    
     // Media Cache
     private(set) var currentSong: Media?
     
@@ -42,18 +47,42 @@ class PlayerEngine: NSObject {
         currentSong = media
         player.delegate = self
         
-        // Engage the Media Player, allowing this engine to decide what to do based on its state.
-        if !player.isPlaying {
+        // Hack for now.  We need duel state management for native vs Spotify
+        if !isOutsourced {
+            isOutsourced = false
             
-            if isPaused {
-              resumeSong()
+            // Engage the Media Player, allowing this engine to decide what to do based on its state.
+            if !player.isPlaying {
+                
+                if isPaused {
+                    resumeSong()
+                } else {
+                    playSong()
+                }
+                
             } else {
-                playSong()
+                pauseSong()
+            }
+        } else {
+            
+            if (!isPaused) {
+                sharedSpotifyService.pause()
+            } else {
+                sharedSpotifyService.resume()
+                playtimeTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+                    self.updatePlayTime()
+                }
             }
             
-        } else {
-            pauseSong()
+            isPaused.toggle()
+
         }
+    }
+    
+    func engagePlayerForSpotify() {
+        isOutsourced = true
+        sharedSpotifyService.delegate = self
+        sharedSpotifyService.invokeSpotifyApp()
     }
     
     func stopSong() {
@@ -165,6 +194,9 @@ class PlayerEngine: NSObject {
     private func updatePlayTime() {
         if player.isPlaying {
             delegate?.playtimeHasChanged(player.currentTime)
+        } else if isOutsourced && !isPaused {
+            playTime += playtimeTimer.timeInterval
+            delegate?.playtimeHasChanged(playTime)
         } else {
             playtimeTimer.invalidate()
         }
@@ -181,7 +213,7 @@ extension PlayerEngine: AVAudioPlayerDelegate {
 }
 
 //MARK: - SpotifyService delegagte
-extension PlayerViewController: SpotifyServiceDelegate {
+extension PlayerEngine: SpotifyServiceDelegate {
     
     func connected(_ spotifyService: SpotifyService) {
         print("PlayerEngine - Spotify Connected.")
@@ -192,8 +224,21 @@ extension PlayerViewController: SpotifyServiceDelegate {
     }
     
     func playerStateChanged(_ spotifyService: SpotifyService, _ media: Media) {
-        print("PlayerEngine - Spotify player state changed.")
-        print("Media: \(media)")
+        print("Player Position: \(spotifyService.playbackPosition)")
+        
+        // Stack state
+        currentSong = media
+        isPaused = false
+        playTime = Double(spotifyService.playbackPosition) / 1000
+        songDuration = media.duration
+        
+        // Playtime timer
+        playtimeTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { timer in
+            self.updatePlayTime()
+        }
+        
+        // Let everyone know what magic just went down.
+        delegate?.newSongStarted(media)
     }
     
 }

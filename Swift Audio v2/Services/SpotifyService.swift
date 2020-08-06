@@ -29,6 +29,9 @@ class SpotifyService: NSObject {
     
     var delegate: SpotifyServiceDelegate?
     private let dataService = DataService()
+    private(set) var playbackPosition: Int = 0
+    private(set) var hasAuthorized = false
+    private var isPaused = false
     
     // The App Remote for Spotify
     lazy var appRemote: SPTAppRemote = {
@@ -36,7 +39,7 @@ class SpotifyService: NSObject {
         let appRemote = SPTAppRemote(configuration: configuration, logLevel: .debug)
         
         appRemote.connectionParameters.accessToken = self.accessToken
-        appRemote.delegate = self
+        appRemote.delegate = sharedSpotifyService
         
         return appRemote
     }()
@@ -53,21 +56,34 @@ class SpotifyService: NSObject {
     
     public func invokeSpotifyApp() {
         appRemote.authorizeAndPlayURI("")
-        appRemote.delegate = self
+        appRemote.delegate = sharedSpotifyService
     }
     
     public func authorize(from url: URL) -> [String : String]? {
+        hasAuthorized = true
         return appRemote.authorizationParameters(from: url)
     }
     
     public func connect() {
         appRemote.connect()
-        delegate?.connected(self)
     }
     
     public func disconnect() {
         appRemote.disconnect()
-        delegate?.connected(self)
+        delegate?.connected(sharedSpotifyService)
+    }
+    
+    public func pause() {
+        appRemote.playerAPI?.pause({ (value, error) in
+            print("To Do: Pause.")
+            self.isPaused.toggle()
+        })
+    }
+    
+    public func resume() {
+        appRemote.playerAPI?.resume({ (value, error) in
+            print("To Do: Resume.")
+        })
     }
 }
 
@@ -75,36 +91,56 @@ extension SpotifyService: SPTAppRemoteDelegate, SPTAppRemotePlayerStateDelegate 
 
     func appRemoteDidEstablishConnection(_ appRemote: SPTAppRemote) {
         // Connection was successful, you can begin issuing commands
-        self.appRemote.playerAPI?.delegate = self
+        self.appRemote.playerAPI?.delegate = sharedSpotifyService
         self.appRemote.playerAPI?.subscribe(toPlayerState: { (result, error) in
           if let error = error {
             debugPrint(error.localizedDescription)
           }
         })
+        
+        delegate?.connected(sharedSpotifyService)
     }
 
     func appRemote(_ appRemote: SPTAppRemote, didFailConnectionAttemptWithError error: Error?) {
         print("ERROR -- SpotifyService - Spotify App Remote failed a connection attempt.")
         print(error!)
-        delegate?.disconnected(self)
+        delegate?.disconnected(sharedSpotifyService)
     }
 
     func appRemote(_ appRemote: SPTAppRemote, didDisconnectWithError error: Error?) {
         print("ERROR -- SpotifyService - Spotify App Remote disconnected.")
         print(error!)
-        delegate?.disconnected(self)
+        delegate?.disconnected(sharedSpotifyService)
     }
 
     func playerStateDidChange(_ playerState: SPTAppRemotePlayerState) {
-        let media = Media()
+
+        // The Spotify App Remote triggers state change when paused
+        // We want to ignore this
+        if !playerState.isPaused {
+            
+            // Check if we were previously paused, if so unpause
+            // Doing this because PlayerStateDidChange triggers after the Resume event
+            if isPaused {
+                isPaused.toggle()
+            } else {
+                // Create a Media instance for the UI
+                // To Do: This shouldn't cause duplicates...
+                let media = Media(context: dataService.context)
+                
+                media.artist = playerState.track.artist.name
+                media.title = playerState.track.name
+                media.duration = Double(playerState.track.duration) / 1000
+                media.albumName = playerState.track.album.name
+                
+                playbackPosition = playerState.playbackPosition
+                
+                print("Spotify started playing: \(media)")
+                delegate?.playerStateChanged(sharedSpotifyService, media)
+            }
+            
+        }
         
-        media.artist = playerState.track.artist.name
-        media.title = playerState.track.name
-        media.duration = Double(playerState.track.duration)
-        media.albumName = playerState.track.album.name
-        
-        print("Spotify started playing: \(media)")
-        delegate?.playerStateChanged(self, media)
     }
     
 }

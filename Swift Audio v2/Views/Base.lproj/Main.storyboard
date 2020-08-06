@@ -70,7 +70,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ogZ-By-EY3">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="145"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="200"/>
                                         <subviews>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WlO-Ry-tVd">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
@@ -84,14 +84,14 @@
                                                 </segments>
                                             </segmentedControl>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5CA-lC-kcX">
-                                                <rect key="frame" x="0.0" y="58" width="414" height="43"/>
+                                                <rect key="frame" x="0.0" y="58" width="414" height="50"/>
                                                 <subviews>
                                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Pun-Q6-8xx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="380.33333333333331" height="43"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="390.33333333333331" height="50"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </searchBar>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1is-6w-a9P">
-                                                        <rect key="frame" x="380.33333333333331" y="0.0" width="33.666666666666686" height="43"/>
+                                                        <rect key="frame" x="390.33333333333331" y="0.0" width="23.666666666666686" height="50"/>
                                                         <state key="normal" image="icloud.and.arrow.up" catalog="system"/>
                                                         <connections>
                                                             <action selector="importDirectoryPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vfV-37-PQA"/>
@@ -99,8 +99,28 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5p-IH-fro">
+                                                <rect key="frame" x="0.0" y="116" width="404" height="40"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zY-nb-Vnn">
+                                                        <rect key="frame" x="0.0" y="0.0" width="284" height="40"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IIx-6B-MWk">
+                                                        <rect key="frame" x="284" y="0.0" width="120" height="40"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="En8-xP-sLh"/>
+                                                            <constraint firstAttribute="width" constant="120" id="TL8-ce-jr7"/>
+                                                        </constraints>
+                                                        <state key="normal" image="SpotifyLogo"/>
+                                                        <connections>
+                                                            <action selector="spotifyPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nbb-iI-Ppg"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="204" translatesAutoresizingMaskIntoConstraints="NO" id="xRU-U7-5OS">
-                                                <rect key="frame" x="0.0" y="109" width="403" height="36"/>
+                                                <rect key="frame" x="0.0" y="164" width="403" height="36"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pGD-BR-VaG">
                                                         <rect key="frame" x="0.0" y="0.0" width="78.333333333333329" height="36"/>
@@ -118,12 +138,15 @@
                                             </stackView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="d5p-IH-fro" secondAttribute="trailing" constant="10" id="HNa-ZN-WPH"/>
+                                            <constraint firstItem="d5p-IH-fro" firstAttribute="leading" secondItem="ogZ-By-EY3" secondAttribute="leading" id="gpg-5J-qEB"/>
+                                            <constraint firstAttribute="height" constant="200" id="ptx-9x-xiZ"/>
                                             <constraint firstItem="WlO-Ry-tVd" firstAttribute="centerX" secondItem="ogZ-By-EY3" secondAttribute="centerX" id="tCB-dW-YYA"/>
                                             <constraint firstItem="5CA-lC-kcX" firstAttribute="centerX" secondItem="ogZ-By-EY3" secondAttribute="centerX" id="vcx-UY-1dB"/>
                                         </constraints>
                                     </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xbl-go-bjG">
-                                        <rect key="frame" x="0.0" y="151" width="414" height="500"/>
+                                        <rect key="frame" x="0.0" y="206" width="414" height="445"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </tableView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAx-wV-29H" userLabel="Now Playing">
@@ -155,7 +178,7 @@
                                                 </constraints>
                                                 <state key="normal" image="arrowshape.turn.up.right.fill" catalog="system"/>
                                                 <connections>
-                                                    <action selector="nowPlayingClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vRD-3x-thp"/>
+                                                    <action selector="nowPlayingPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="evs-Zh-6kI"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -418,6 +441,7 @@
     </scenes>
     <resources>
         <image name="Men At Work.jpg" width="770" height="770"/>
+        <image name="SpotifyLogo" width="2362" height="709"/>
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="106"/>
         <image name="backward.end.fill" catalog="system" width="128" height="102"/>
         <image name="backward.fill" catalog="system" width="128" height="79"/>

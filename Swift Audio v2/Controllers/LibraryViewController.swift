@@ -20,6 +20,7 @@ class LibraryViewController: UIViewController {
     var dataService = DataService()
     
     var currentSong: Media?
+    var isPlayingSpotify = false
     var mediaManager = MediaFileManager()
     var media: [Media] = []
     var sortedMedia: [Media] = []
@@ -51,6 +52,7 @@ class LibraryViewController: UIViewController {
             
             // Supply the song to play
             player.currentSong = currentSong
+            player.shouldUseSpotifyService = isPlayingSpotify
         } else {
             print("Unknown segue.")
         }
@@ -66,21 +68,18 @@ class LibraryViewController: UIViewController {
         UIApplication.shared.windows.first?.rootViewController?.present(picker, animated: true)
     }
     
-    @IBAction func nowPlayingClicked(_ sender: UIButton) {
+    @IBAction func nowPlayingPressed(_ sender: UIButton) {
         // Segue to the Player View
         self.performSegue(withIdentifier: Constants.playerSegue, sender: self)
     }
     
-    public func appRemoteDisconnect() {
-        print("App Remote Disconnecting")
-    }
-    
-    public func appRemoteConnecting() {
-        print("App Remote Connecting")
-    }
-    
-    public func appRemoteConnected() {
-        print("App Remote Connected")
+    @IBAction func spotifyPressed(_ sender: UIButton) {
+        // User wants Spotify; no more local library music :(
+        currentSong = nil
+        isPlayingSpotify = true
+        
+        // Segue to the Player View
+        self.performSegue(withIdentifier: Constants.playerSegue, sender: self)
     }
     
     private func directorySelected(url: URL) {
@@ -128,7 +127,7 @@ class LibraryViewController: UIViewController {
     private func refreshUI() {
         nowPlaying.isHidden = !sharedPlayerEngine.isPlaying()
         
-        if sharedPlayerEngine.isPlaying() {
+        if sharedPlayerEngine.isPlaying() || sharedPlayerEngine.isOutsourced {
             if let song = sharedPlayerEngine.currentSong {
                 currentSongLabel.text = song.songFormatted()
             } else {

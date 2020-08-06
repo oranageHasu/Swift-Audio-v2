@@ -27,11 +27,13 @@ class PlayerViewController: UIViewController {
     
     var currentSong: Media? {
         willSet {
-            if sharedPlayerEngine.currentSong == newValue {
+            if newValue != nil && sharedPlayerEngine.currentSong == newValue {
                 isResumingSong = true
             }
         }
     }
+    
+    var shouldUseSpotifyService = false
     
     private var musixMatchService = MusixMatchService()
     private var userIsAdjustingSlider = false
@@ -58,7 +60,14 @@ class PlayerViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if !isResumingSong {
-            sharedPlayerEngine.engagePlayer(forSong: currentSong)
+            
+            // Determine if we're playing from the library or Spotify
+            if shouldUseSpotifyService {
+                sharedPlayerEngine.engagePlayerForSpotify()
+            } else {
+                sharedPlayerEngine.engagePlayer(forSong: currentSong)
+            }
+            
         }
     }
     
@@ -126,7 +135,7 @@ class PlayerViewController: UIViewController {
         if let song = currentSong {
             artistLabel.text = song.artist
             titleLabel.text = song.title
-        } else {
+        } else if !shouldUseSpotifyService {
             print("ERROR -- PlayerViewController.initializePlayer() - Supplied Media instance is nil.")
         }
         
@@ -140,10 +149,16 @@ class PlayerViewController: UIViewController {
     
     private func refreshUI() {
         // Player/Pause button state:
-        if sharedPlayerEngine.isPlaying() && !sharedPlayerEngine.isPaused {
+        if (sharedPlayerEngine.isPlaying() || sharedPlayerEngine.isOutsourced) && !sharedPlayerEngine.isPaused {
             playButton.setBackgroundImage(UIImage(systemName: "pause.fill"), for: .normal)
         } else {
             playButton.setBackgroundImage(UIImage(systemName: "play.fill"), for: .normal)
+        }
+        
+        // Artist/Title
+        if let song = sharedPlayerEngine.currentSong {
+            artistLabel.text = song.artist
+            titleLabel.text = song.title
         }
         
         // Slider Max value
