@@ -6,6 +6,7 @@
         <attribute name="artist" attributeType="String" defaultValueString="&lt;No Artist&gt;"/>
         <attribute name="artwork" optional="YES" attributeType="Binary"/>
         <attribute name="duration" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="filePath" optional="YES" attributeType="String"/>
         <attribute name="mediaBookmark" optional="YES" attributeType="Binary"/>
         <attribute name="publisher" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String" defaultValueString="&lt;No Title&gt;"/>
@@ -14,7 +15,7 @@
     <entity name="User" representedClassName=".User" syncable="YES" codeGenerationType="class"/>
     <elements>
         <element name="Library" positionX="-484.453125" positionY="42.3046875" width="128" height="43"/>
-        <element name="Media" positionX="-256.23046875" positionY="37.54296875" width="128" height="163"/>
+        <element name="Media" positionX="-256.23046875" positionY="37.54296875" width="128" height="178"/>
         <element name="User" positionX="-703.78125" positionY="46.84375" width="128" height="43"/>
     </elements>
 </model>

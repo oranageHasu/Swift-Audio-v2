@@ -14,6 +14,40 @@ struct MediaFileManager {
     
     let dataService = DataService()
     
+    func getDocumentsDirectory() -> URL {
+        // find all possible documents directories for this user
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+
+        // just send back the first one, which ought to be the only one
+        return paths[0]
+    }
+    
+    func saveFile(url: URL, fileName: String){
+        if let docUrl: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let desURL = docUrl.appendingPathComponent("\(fileName).\(url.pathExtension)")
+              
+            do {
+                try FileManager.default.copyItem(at: url, to: desURL)
+            } catch {
+                print(error)
+            }
+        }
+    }
+    
+    func listFiles() {
+        let fileManager = FileManager.default
+        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: documentsURL, includingPropertiesForKeys: nil)
+            
+            print("Current Document Folder:")
+            print(fileURLs)
+        } catch {
+            print("Error while enumerating files \(documentsURL.path): \(error.localizedDescription)")
+        }
+    }
+    
     func processFolder(with url: URL) -> [Media] {
         var mediaFromNetwork: [Media] = []
         var error: NSError? = nil
@@ -50,6 +84,9 @@ struct MediaFileManager {
 
                     // Create a filesystem bookmark for this song
                     media.mediaBookmark = try file.bookmarkData()
+                    
+                    // Track this file's URL (this is incase we want to copy it locally)
+                    media.filePath = file.absoluteURL.absoluteString
                     
                     // Process the metadata
                     for item in metadata {
