@@ -169,6 +169,9 @@ extension LibraryViewController: UITableViewDataSource {
 extension LibraryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Invalidate Spotify playback
+        isPlayingSpotify = false
+        
         // Set the current Media selection
         currentSong = sortedMedia[indexPath.row]
         

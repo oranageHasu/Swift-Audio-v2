@@ -29,6 +29,8 @@ class PlayerViewController: UIViewController {
         willSet {
             if newValue != nil && sharedPlayerEngine.currentSong == newValue {
                 isResumingSong = true
+            } else {
+                isResumingSong = false
             }
         }
     }
@@ -65,9 +67,16 @@ class PlayerViewController: UIViewController {
             if shouldUseSpotifyService {
                 sharedPlayerEngine.engagePlayerForSpotify()
             } else {
+                sharedPlayerEngine.takeOwnership()
                 sharedPlayerEngine.engagePlayer(forSong: currentSong)
             }
             
+        } else {
+            if shouldUseSpotifyService {
+                sharedPlayerEngine.engagePlayerForSpotify()
+                //sharedPlayerEngine.engagePlayer(forSong: currentSong)
+                refreshUI()
+            }
         }
     }
     

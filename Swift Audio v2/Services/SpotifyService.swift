@@ -55,6 +55,7 @@ class SpotifyService: NSObject {
     }
     
     public func invokeSpotifyApp() {
+        isPaused = false
         appRemote.authorizeAndPlayURI("")
         appRemote.delegate = sharedSpotifyService
     }
