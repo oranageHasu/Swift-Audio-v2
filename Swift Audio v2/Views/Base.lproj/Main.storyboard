@@ -87,12 +87,12 @@
                                                 <rect key="frame" x="0.0" y="58" width="414" height="50"/>
                                                 <subviews>
                                                     <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Pun-Q6-8xx">
-                                                        <rect key="frame" x="0.0" y="0.0" width="390.33333333333331" height="50"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="388" height="50"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </searchBar>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1is-6w-a9P">
-                                                        <rect key="frame" x="390.33333333333331" y="0.0" width="23.666666666666686" height="50"/>
-                                                        <state key="normal" image="icloud.and.arrow.up" catalog="system"/>
+                                                        <rect key="frame" x="388" y="0.0" width="26" height="50"/>
+                                                        <state key="normal" image="folder.fill.badge.plus" catalog="system"/>
                                                         <connections>
                                                             <action selector="importDirectoryPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vfV-37-PQA"/>
                                                         </connections>
@@ -146,33 +146,33 @@
                                         </constraints>
                                     </stackView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Xbl-go-bjG">
-                                        <rect key="frame" x="0.0" y="206" width="414" height="445"/>
+                                        <rect key="frame" x="0.0" y="206" width="414" height="435"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </tableView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uAx-wV-29H" userLabel="Now Playing">
-                                        <rect key="frame" x="0.0" y="657" width="414" height="35"/>
+                                        <rect key="frame" x="0.0" y="647" width="414" height="45"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Now Playing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1yf-8E-j4z">
-                                                <rect key="frame" x="0.0" y="0.0" width="100.66666666666667" height="35"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100.66666666666667" height="45"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFl-RM-x7h">
-                                                <rect key="frame" x="100.66666666666667" y="0.0" width="10" height="35"/>
+                                                <rect key="frame" x="100.66666666666667" y="0.0" width="10" height="45"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="10" id="TCk-Nq-Y1f"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="&lt;Track Info&gt;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQ1-KO-TCf" customClass="MarqueeLabel" customModule="MarqueeLabel">
-                                                <rect key="frame" x="110.66666666666666" y="0.0" width="263.33333333333337" height="35"/>
+                                                <rect key="frame" x="110.66666666666666" y="0.0" width="263.33333333333337" height="45"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X7t-nk-MX6">
-                                                <rect key="frame" x="374" y="0.0" width="40" height="35"/>
+                                                <rect key="frame" x="374" y="0.0" width="40" height="45"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="40" id="LhS-LU-aUg"/>
                                                 </constraints>
@@ -183,7 +183,7 @@
                                             </button>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="4s6-nn-LU6"/>
+                                            <constraint firstAttribute="height" constant="45" id="4s6-nn-LU6"/>
                                         </constraints>
                                     </stackView>
                                 </subviews>
@@ -445,9 +445,9 @@
         <image name="arrowshape.turn.up.right.fill" catalog="system" width="128" height="106"/>
         <image name="backward.end.fill" catalog="system" width="128" height="102"/>
         <image name="backward.fill" catalog="system" width="128" height="79"/>
+        <image name="folder.fill.badge.plus" catalog="system" width="128" height="86"/>
         <image name="forward.end.fill" catalog="system" width="128" height="102"/>
         <image name="forward.fill" catalog="system" width="128" height="79"/>
-        <image name="icloud.and.arrow.up" catalog="system" width="128" height="106"/>
         <image name="person.circle" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="repeat" catalog="system" width="128" height="99"/>
