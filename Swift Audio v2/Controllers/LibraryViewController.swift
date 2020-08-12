@@ -107,7 +107,8 @@ class LibraryViewController: UIViewController {
         // Note: We're creating Bookmarks to access the songs.  This can be long-running operation.
         DispatchQueue.global(qos: .background).async {
             self.media = self.mediaManager.processFolder(with: url)
-
+            self.sortedMedia = self.media
+            
             DispatchQueue.main.async {
                 // Dimiss the loading indicator
                 alert.dismiss(animated: true, completion: nil)
@@ -178,7 +179,46 @@ extension LibraryViewController: UITableViewDelegate {
         // Segue to the Player View
         self.performSegue(withIdentifier: Constants.playerSegue, sender: self)
     }
+
+    // Contextual Actions
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { (_, _, completionHandler) in
+            // Delete the song here
+            print("To Do: Delete Song.")
+            
+            completionHandler(true)
+        }
+            
+        deleteAction.image = UIImage(systemName: "trash")
+        deleteAction.backgroundColor = .systemBackground
+            
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+            
+        return configuration
+    }
     
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let downloadAction = UIContextualAction(style: .normal, title: nil) { (_, _, completionHandler) in
+            // Get the song to download
+            let song = self.sortedMedia[indexPath.row]
+            
+            // Download the song here
+            if let path = song.filePath {
+                if let url = URL(string: path) {
+                    self.mediaManager.saveFile(url: url, fileName: song.songFormatted())
+                }
+            }
+            
+            completionHandler(true)
+        }
+            
+        downloadAction.image = UIImage(systemName: "icloud.and.arrow.down.fill")
+        downloadAction.backgroundColor = .systemBackground
+            
+        let configuration = UISwipeActionsConfiguration(actions: [downloadAction])
+            
+        return configuration
+    }
 }
 
 //MARK: - UISearchBar Delegate

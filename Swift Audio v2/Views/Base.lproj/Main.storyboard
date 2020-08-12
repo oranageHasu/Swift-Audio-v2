@@ -213,7 +213,7 @@
                         <outlet property="groupSegmentedControl" destination="WlO-Ry-tVd" id="lRv-KT-rq0"/>
                         <outlet property="nowPlaying" destination="uAx-wV-29H" id="CMA-38-hlY"/>
                         <outlet property="searchbar" destination="Pun-Q6-8xx" id="1Aw-aL-3wv"/>
-                        <outlet property="tableView" destination="Xbl-go-bjG" id="hvN-xx-ezT"/>
+                        <outlet property="tableView" destination="Xbl-go-bjG" id="Aux-qL-Cog"/>
                         <segue destination="SNM-D5-s6Z" kind="show" identifier="LibraryToPlayer" id="jmG-11-Sm3"/>
                     </connections>
                 </viewController>

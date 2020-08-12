@@ -44,6 +44,7 @@ class PlayerEngine: NSObject {
     
     //MARK: - Public Methods
     func takeOwnership() {
+        isPaused = false
         isOutsourced = false
     }
     
@@ -63,11 +64,16 @@ class PlayerEngine: NSObject {
         sharedSpotifyService.delegate = self
         
         if !sharedSpotifyService.hasAuthorized {
+            
+            // First Time Spotify Authorization
             sharedSpotifyService.invokeSpotifyApp()
+            
         } else if !sharedSpotifyService.appRemote.isConnected {
-            //sharedSpotifyService.connect()
+            
+            // Authorize with Spotify (if required) and then resume playing
             sharedSpotifyService.invokeSpotifyApp()
             sharedSpotifyService.resume()
+            
         }
     }
     
@@ -277,7 +283,10 @@ extension PlayerEngine: SpotifyServiceDelegate {
     
     func disconnected(_ spotifyService: SpotifyService) {
         print("PlayerEngine - Spotify Disconnected.")
-        currentSong = nil
+        
+        if isOutsourced {
+            currentSong = nil
+        }
     }
     
     func playerStateChanged(_ spotifyService: SpotifyService, _ media: Media) {

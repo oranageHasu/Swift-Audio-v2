@@ -74,9 +74,9 @@ class PlayerViewController: UIViewController {
         } else {
             if shouldUseSpotifyService {
                 sharedPlayerEngine.engagePlayerForSpotify()
-                //sharedPlayerEngine.engagePlayer(forSong: currentSong)
-                refreshUI()
             }
+            
+            refreshUI()
         }
     }
     
